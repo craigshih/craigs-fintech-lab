@@ -1,0 +1,5 @@
+# 私人資料：實驗室 Discord 行事曆與內部職缺，只留在本機
+data/events.js
+.claude/
+.DS_Store
+__pycache__/

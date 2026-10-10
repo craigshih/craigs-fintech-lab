@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Craig's FinTech Lab</title>
+  <meta name="description" content="Craig 的金融科技學習基地：五大領域學習路徑、知識庫、筆記、職缺與論文雷達。">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e0262f'/%3E%3Ctext x='16' y='22' font-size='17' font-family='Arial' font-weight='700' text-anchor='middle' fill='%23ffc82c'%3EC%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- SVG icon sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-wealth" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
+      <symbol id="i-sustainable" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+      <symbol id="i-digital-assets" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></symbol>
+      <symbol id="i-payments" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="10" y2="15"/></symbol>
+      <symbol id="i-insurtech" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+      <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+      <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+      <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8L4 10.7l5.1 3.7L7.2 20 12 16.6 16.8 20l-1.9-5.6 5.1-3.7-6.1-1.9Z"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+      <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+      <symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></symbol>
+      <symbol id="i-paper" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
+      <symbol id="i-landmark" viewBox="0 0 24 24"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></symbol>
+      <symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></symbol>
+      <symbol id="i-news" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="scroll-bar" id="scrollBar"></div>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="#top" class="logo"><span class="logo-mark">C</span><span>Craig's <b>FinTech</b> Lab</span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#domains">五大領域</a>
+        <a href="#calendar" class="private-only">行事曆</a>
+        <a href="#library">知識庫</a>
+        <a href="#notes">筆記</a>
+        <a href="#jobs">職缺</a>
+        <a href="#thesis">論文雷達</a>
+        <a href="#platforms">課程平台</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="選單">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="grid-bg"></div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow anim-up">NCCU FinTech Innovation Lab · 2026</p>
+          <h1 class="anim-up d1">把金融科技<br><span class="hl type-target">學成一套系統</span></h1>
+          <p class="lead anim-up d2">五大領域學習路徑、知識庫、筆記、職缺追蹤與論文雷達都放在這裡。每天打開就知道今天要學什麼、要做什麼。</p>
+          <div class="hero-cta anim-up d3">
+            <a href="#domains" class="btn btn-red">開始學習 <svg class="ic"><use href="#i-arrow"/></svg></a>
+            <a href="#notes" class="btn btn-ghost"><svg class="ic"><use href="#i-pen"/></svg> 打開筆記</a>
+          </div>
+        </div>
+        <div class="hero-card anim-up d2" id="today">
+          <div class="hero-card-head">
+            <span id="heroCardTitle"><svg class="ic"><use href="#i-calendar"/></svg> 接下來 7 天</span>
+            <small id="todayDate"></small>
+          </div>
+          <ul class="mini-list" id="upcomingList"></ul>
+          <a href="#calendar" class="more" id="heroMore">完整行事曆 →</a>
+        </div>
+      </div>
+      <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+      <div class="wrap stats" id="stats"></div>
+    </section>
+
+    <!-- DOMAINS -->
+    <section class="section" id="domains">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow"><svg class="ic"><use href="#i-layers"/></svg> Learning Tracks</p>
+          <h2>五大領域</h2>
+          <p class="sub">對應實驗室「專案進行中」的五個頻道。點卡片會看到學習路徑，勾選完成的項目會自動記錄進度。</p>
+        </div>
+        <div class="domain-grid" id="domainGrid"></div>
+      </div>
+    </section>
+
+    <!-- CALENDAR (private only) -->
+    <section class="section section-dark private-only" id="calendar">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow"><svg class="ic"><use href="#i-lock"/></svg> Lab Calendar · 僅本機顯示</p>
+          <h2>實驗室行事曆 & 待辦</h2>
+          <p class="sub">每天自動彙整實驗室 Discord 的活動、截止日與資訊。<span class="updated" id="eventsUpdated"></span></p>
+        </div>
+        <div class="filters" id="eventFilters"></div>
+        <div class="cal-layout reveal">
+          <div class="cal" id="cal"></div>
+          <ul class="event-list" id="eventList"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIBRARY -->
+    <section class="section" id="library">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow"><svg class="ic"><use href="#i-book"/></svg> Knowledge Library</p>
+          <h2>知識庫</h2>
+          <p class="sub">從新聞、論文、期刊、白皮書、企業報告和監理文件中，只整理知識點，可以直接拿來學。每週二、六更新。<span class="updated" id="libraryUpdated"></span></p>
+        </div>
+        <div class="lib-tools">
+          <label class="search"><svg class="ic"><use href="#i-search"/></svg><input type="search" id="libSearch" placeholder="搜尋知識點、來源、關鍵字…"></label>
+          <div class="filters" id="libTypeFilters"></div>
+          <div class="filters" id="libDomainFilters"></div>
+        </div>
+        <div class="lib-grid" id="libGrid"></div>
+      </div>
+    </section>
+
+    <!-- NOTES -->
+    <section class="section section-dark" id="notes">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow"><svg class="ic"><use href="#i-pen"/></svg> Notebook</p>
+          <h2>我的筆記</h2>
+          <p class="sub">各領域、各課程的筆記分開放，「統整筆記」把重點收在一起。筆記只存在這台電腦的瀏覽器裡，記得定期按「匯出備份」。</p>
+        </div>
+        <div class="nb reveal">
+          <aside class="nb-side">
+            <div class="nb-group">總覽</div>
+            <div id="nbBooksMain"></div>
+            <div class="nb-group">五大領域</div>
+            <div id="nbBooksDomain"></div>
+            <div class="nb-group">課程 <button class="mini-btn" id="addCourse" title="新增課程筆記本"><svg class="ic"><use href="#i-plus"/></svg></button></div>
+            <div id="nbBooksCourse"></div>
+            <div class="nb-io">
+              <button class="mini-btn wide" id="exportJson"><svg class="ic"><use href="#i-download"/></svg> 匯出備份</button>
+              <button class="mini-btn wide" id="exportMd"><svg class="ic"><use href="#i-download"/></svg> 匯出 Markdown</button>
+              <label class="mini-btn wide"><svg class="ic"><use href="#i-upload"/></svg> 匯入備份<input type="file" id="importJson" accept=".json" hidden></label>
+            </div>
+          </aside>
+          <div class="nb-list">
+            <div class="nb-list-head">
+              <h3 id="nbTitle">統整筆記</h3>
+              <button class="btn btn-red btn-sm" id="newNote"><svg class="ic"><use href="#i-plus"/></svg> 新筆記</button>
+            </div>
+            <label class="search dark"><svg class="ic"><use href="#i-search"/></svg><input type="search" id="noteSearch" placeholder="搜尋筆記…"></label>
+            <ul id="noteList"></ul>
+          </div>
+          <div class="nb-editor" id="nbEditor"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOBS -->
+    <section class="section" id="jobs">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow"><svg class="ic"><use href="#i-briefcase"/></svg> Career Radar</p>
+          <h2>金融科技職缺雷達</h2>
+          <p class="sub">每週一、四自動搜尋 104、Cake、Yourator 與銀行官網。<span class="updated" id="jobsUpdated"></span></p>
+        </div>
+        <div class="lib-tools">
+          <label class="search"><svg class="ic"><use href="#i-search"/></svg><input type="search" id="jobSearch" placeholder="搜尋公司、職稱、關鍵字…"></label>
+          <div class="filters" id="jobFilters"></div>
+        </div>
+        <div class="job-grid" id="jobGrid"></div>
+      </div>
+    </section>
+
+    <!-- THESIS -->
+    <section class="section section-dark" id="thesis">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow"><svg class="ic"><use href="#i-compass"/></svg> Thesis Radar · 一魚兩吃</p>
+          <h2>論文雷達</h2>
+          <p class="sub">同一則時事，一份拿去上課，一份拿去寫論文。每週一、三、五更新。<span class="updated" id="thesisUpdated"></span></p>
+        </div>
+        <div class="filters" id="thesisFilters"></div>
+        <div class="thesis-list" id="thesisList"></div>
+      </div>
+    </section>
+
+    <!-- PLATFORMS -->
+    <section class="section" id="platforms">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow"><svg class="ic"><use href="#i-spark"/></svg> Course Platforms</p>
+          <h2>線上課程平台</h2>
+          <p class="sub">整理自 CLN 的線上學習平台比較，標出各平台對學金融科技最有用的地方。</p>
+        </div>
+        <div class="platform-grid" id="platformGrid"></div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap cta-inner reveal">
+        <h2>今天先完成<span class="hl">一件事</span>就好。</h2>
+        <a href="#domains" class="btn btn-yellow">回到學習路徑 <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <span><b>Craig's FinTech Lab</b> · v2</span>
+      <span>資料由排程自動更新；職缺、新聞與報告數字請以原始來源為準</span>
+    </div>
+  </footer>
+
+  <div class="drawer-bg" id="drawerBg"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <button class="drawer-close" id="drawerClose" aria-label="關閉">✕</button>
+    <div id="drawerBody"></div>
+  </aside>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // 排程會覆寫 data/*.js，加時間戳避免讀到舊快取；events.js 是私人檔，公開網站上不存在
+    (function () {
+      var files = ["data/domains.js", "data/events.js", "data/jobs.js", "data/thesis.js", "data/library.js", "app.js"], t = Date.now();
+      (function next(i) {
+        if (i >= files.length) return;
+        var s = document.createElement("script");
+        s.src = files[i] + "?t=" + t;
+        s.onload = s.onerror = function () { next(i + 1); };
+        document.body.appendChild(s);
+      })(0);
+    })();
+  </script>
+</body>
+</html>

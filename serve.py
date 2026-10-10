@@ -13,7 +13,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.send_error(404); return
         try:
             item = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))) or b"{}")
-            item = {k: item.get(k) for k in ("book", "course", "title", "body", "tags", "source")}
+            item = {k: item.get(k) for k in ("title", "body", "domains", "type", "sourceType", "sourceOrg", "link", "published", "tags", "uses")}
             item["queuedAt"] = time.strftime("%Y-%m-%dT%H:%M:%S")
             queue = json.load(open(QUEUE, encoding="utf-8")) if os.path.exists(QUEUE) else []
             queue.append(item)

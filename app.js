@@ -214,7 +214,7 @@
   let evFilter = "all", selDate = null;
   let calMonth = new Date(today.getFullYear(), today.getMonth(), 1);
   const typeName = { event: "活動", todo: "待辦", info: "資訊" };
-  const srcName = { discord: "Discord", gmail: "Gmail", manual: "手動" };
+  const srcName = { discord: "Discord", gmail: "Gmail", accupass: "Accupass", manual: "手動" };
   function renderEventFilters() {
     $("#eventFilters").innerHTML = [["all", "全部"], ["todo", "待辦"], ["event", "活動"], ["info", "資訊"]]
       .map(([v, l]) => `<button class="chip ${evFilter === v ? "on" : ""}" data-v="${v}">${l}</button>`).join("");

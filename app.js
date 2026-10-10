@@ -145,8 +145,8 @@
         </div>`).join("")}
         <h3>推薦課程</h3>
         ${d.courses.map((c) => `<a class="course" target="_blank" rel="noopener" href="${(FT.platforms[c.platform] || "https://www.google.com/search?q=") + encodeURIComponent(c.q)}"><span>${esc(c.title)}</span><small>${esc(c.platform)} ↗</small></a>`).join("")}
-        <h3>我的筆記</h3>
-        <p>這個領域目前有 <b>${noteCount}</b> 則筆記。 <button class="link-btn" data-open-book="${d.id}">${icon("pen")} 打開${esc(d.name)}筆記本</button></p>
+        <h3 class="private-only">我的筆記</h3>
+        <p class="private-only">這個領域目前有 <b>${noteCount}</b> 則筆記。 <button class="link-btn" data-open-book="${d.id}">${icon("pen")} 打開${esc(d.name)}筆記本</button></p>
         <h3>論文關鍵字</h3>
         <div class="topics">${d.thesisKeywords.map((t) => `<span>🔎 ${esc(t)}</span>`).join("")}</div>
         <h3>相關動態</h3>
@@ -265,7 +265,7 @@
         <div class="lib-foot">
           <a href="${esc(l.link)}" target="_blank" rel="noopener">原文 ${icon("external")}</a>
           ${l.verify ? `<span class="verify">數字來自二手報導，引用前請查原文</span>` : ""}
-          <button class="link-btn" data-lib="${i}">${icon("pen")} 存成筆記</button>
+          <button class="link-btn private-only" data-lib="${i}">${icon("pen")} 存成筆記</button>
         </div>
       </article>`;
     }).join("") : `<p class="empty">沒有符合的資料。</p>`;
@@ -276,79 +276,65 @@
     if (!b) return;
     const l = library[Number(b.dataset.lib)];
     const body = `> 來源：${l.source}（${l.date}）\n> ${l.link}\n\n## 知識點\n${(l.points || []).map((p) => "- " + p).join("\n")}\n\n## 我的想法\n- `;
-    createNote(l.domain || "summary", l.title, body, [libCat(l.type)]);
+    createNote(l.domain || "summary", l.title, body, ["知識庫"], l.link);
   });
 
-  // ---- 筆記 ----
-  let notesDB = store.get("notes", null);
-  if (!notesDB) {
-    notesDB = { courses: [], notes: [{
-      id: uid(), book: "summary", pinned: true, tags: ["使用說明"], updated: Date.now(),
-      title: "👋 統整筆記怎麼用",
-      body: "## 這裡是統整筆記\n- 左邊選**五大領域**或**課程**，各自獨立記筆記\n- 任何一則筆記按「收進統整」，就會同時出現在這裡\n- 知識庫、論文雷達的卡片可以按「存成筆記」，直接帶入知識點\n\n## 格式\n支援簡單 Markdown：`# 標題`、`- 清單`、`**粗體**`、`> 引用`、連結 [文字](網址)\n\n## 備份\n筆記只存在這台電腦的瀏覽器，記得定期按左下「匯出備份」。"
-    }] };
-  }
-  let curBook = "summary", curNote = null, mode = "edit";
-  function uid() { return Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4); }
-  function saveNotes() { store.set("notes", notesDB); }
-  const bookName = (b) => b === "summary" ? "統整筆記" : b === "all" ? "全部筆記" : domainById[b] ? domainById[b].name : (notesDB.courses.find((c) => c.id === b) || {}).name || "未分類";
-  const notesIn = (b) => b === "all" ? notesDB.notes : b === "summary" ? notesDB.notes.filter((n) => n.book === "summary" || n.pinned) : notesDB.notes.filter((n) => n.book === b);
+  // ---- 筆記（Notion 同步）----
+  // data/notes.js 是 Notion 資料庫的同步副本（私人檔）；「存成筆記」送到本機 serve.py 的佇列，下次同步寫進 Notion
+  const notionDb = FT.notionDb || "";
+  const notionNotes = FT.notes || [];
+  const nameToBook = { "統整筆記": "summary", ...Object.fromEntries(domains.map((d) => [d.name, d.id])) };
+  const bookToName = (b) => b === "summary" ? "統整筆記" : domainById[b] ? domainById[b].name : "課程";
+  let pending = store.get("notionPending", []).filter((p) => !notionNotes.some((n) => n.title === p.title));
+  store.set("notionPending", pending);
+  const allNotes = () => [
+    ...pending.map((p, i) => ({ id: "pending-" + i, pending: true, title: p.title, book: nameToBook[p.book] || "summary", course: p.course || "", tags: p.tags || [], pinned: false, body: p.body, updated: p.queuedAt, source: p.source })),
+    ...notionNotes
+  ];
+  const notesDB = { get notes() { return allNotes(); } };
+  let curBook = "summary", curNote = null;
+  const courses = () => [...new Set(notionNotes.map((n) => n.course).filter(Boolean))].sort();
+  const bookName = (b) => b === "summary" ? "統整筆記" : b === "all" ? "全部筆記" : domainById[b] ? domainById[b].name : b.startsWith("c:") ? b.slice(2) : "未分類";
+  const notesIn = (b) => {
+    const ns = allNotes();
+    if (b === "all") return ns;
+    if (b === "summary") return ns.filter((n) => n.book === "summary" || n.pinned);
+    if (b.startsWith("c:")) return ns.filter((n) => n.course === b.slice(2));
+    return ns.filter((n) => n.book === b);
+  };
+  if (FT.notesSynced) $("#notesSynced").textContent = "上次同步 " + FT.notesSynced;
+  if (notionDb) { $("#openNotion").href = notionDb; $("#newNote").href = notionDb; }
 
   function renderBooks() {
-    const btn = (id, ic, name, del) => `<button class="nb-book ${curBook === id ? "on" : ""}" data-book="${id}">${icon(ic)}<span>${esc(name)}</span><span class="n">${notesIn(id).length}</span>${del ? `<span class="del" data-delcourse="${id}" title="刪除課程筆記本">✕</span>` : ""}</button>`;
+    const btn = (id, ic, name) => `<button class="nb-book ${curBook === id ? "on" : ""}" data-book="${esc(id)}">${icon(ic)}<span>${esc(name)}</span><span class="n">${notesIn(id).length}</span></button>`;
     $("#nbBooksMain").innerHTML = btn("summary", "layers", "統整筆記") + btn("all", "book", "全部筆記");
     $("#nbBooksDomain").innerHTML = domains.map((d) => btn(d.id, d.id, d.name)).join("");
-    $("#nbBooksCourse").innerHTML = notesDB.courses.length ? notesDB.courses.map((c) => btn(c.id, "paper", c.name, true)).join("")
-      : `<p class="nb-hint" style="padding:0 10px">按 + 新增課程，例如「金融科技概論」。</p>`;
+    $("#nbBooksCourse").innerHTML = courses().length ? courses().map((c) => btn("c:" + c, "paper", c)).join("")
+      : `<p class="nb-hint" style="padding:0 10px">在 Notion 把「筆記本」設為「課程」並填課程名稱，就會出現在這裡。</p>`;
   }
   function selectBook(b) { curBook = b; curNote = null; $("#noteSearch").value = ""; renderBooks(); renderNoteList(); renderEditor(); }
   document.querySelector(".nb-side").addEventListener("click", (e) => {
-    const del = e.target.closest("[data-delcourse]");
-    if (del) {
-      e.stopPropagation();
-      const id = del.dataset.delcourse, n = notesIn(id).length;
-      if (!confirm(`刪除課程筆記本「${bookName(id)}」？${n ? `裡面的 ${n} 則筆記會移到「統整筆記」。` : ""}`)) return;
-      notesDB.notes.forEach((x) => { if (x.book === id) x.book = "summary"; });
-      notesDB.courses = notesDB.courses.filter((c) => c.id !== id);
-      saveNotes(); selectBook("summary"); return;
-    }
     const b = e.target.closest("[data-book]");
     if (b) selectBook(b.dataset.book);
   });
-  $("#addCourse").onclick = () => {
-    const name = (prompt("課程名稱（例如：金融科技概論、區塊鏈與智能合約）") || "").trim();
-    if (!name) return;
-    const c = { id: "c-" + uid(), name };
-    notesDB.courses.push(c); saveNotes(); selectBook(c.id); toast(`已新增課程「${name}」`);
-  };
 
   function renderNoteList() {
     $("#nbTitle").textContent = bookName(curBook);
     const q = $("#noteSearch").value.trim().toLowerCase();
     const list = notesIn(curBook)
       .filter((n) => !q || (n.title + n.body + (n.tags || []).join(" ")).toLowerCase().includes(q))
-      .sort((a, b) => (b.pinned && curBook !== "summary") - (a.pinned && curBook !== "summary") || b.updated - a.updated);
+      .sort((a, b) => (b.pending ? 1 : 0) - (a.pending ? 1 : 0) || String(b.updated).localeCompare(String(a.updated)));
     $("#noteList").innerHTML = list.length ? list.map((n) => `
-      <li class="note-item ${curNote === n.id ? "on" : ""}" data-note="${n.id}">
+      <li class="note-item ${curNote === n.id ? "on" : ""}" data-note="${esc(n.id)}">
         <b>${esc(n.title || "未命名筆記")}</b>
-        <small>${n.pinned ? `<span class="pin">★ 統整</span>` : ""}${curBook === "all" || curBook === "summary" ? `<span>${esc(bookName(n.book))}</span>` : ""}<span>${new Date(n.updated).toLocaleDateString("zh-TW")}</span>${(n.tags || []).map((t) => `<span>#${esc(t)}</span>`).join("")}</small>
-      </li>`).join("") : `<li class="nb-hint">${q ? "找不到符合的筆記" : "還沒有筆記，按「新筆記」開始。"}</li>`;
+        <small>${n.pending ? `<span class="queued">⏳ 待同步到 Notion</span>` : ""}${n.pinned ? `<span class="pin">★ 統整</span>` : ""}${curBook === "all" || curBook === "summary" ? `<span>${esc(n.course || bookName(n.book))}</span>` : ""}<span>${esc(String(n.updated || "").slice(0, 10))}</span>${(n.tags || []).map((t) => `<span>#${esc(t)}</span>`).join("")}</small>
+      </li>`).join("") : `<li class="nb-hint">${q ? "找不到符合的筆記" : "這本還沒有筆記。按「新筆記」會打開 Notion。"}</li>`;
   }
   $("#noteList").addEventListener("click", (e) => {
     const li = e.target.closest("[data-note]");
-    if (li) { curNote = li.dataset.note; mode = "edit"; renderNoteList(); renderEditor(); }
+    if (li) { curNote = li.dataset.note; renderNoteList(); renderEditor(); }
   });
   $("#noteSearch").addEventListener("input", renderNoteList);
-
-  function createNote(book, title = "", body = "", tags = []) {
-    const n = { id: uid(), book: book === "all" ? "summary" : book, title, body, tags, pinned: false, updated: Date.now() };
-    notesDB.notes.push(n); saveNotes();
-    curBook = n.book; curNote = n.id; mode = "edit";
-    renderBooks(); renderNoteList(); renderEditor();
-    if (title) { $("#notes").scrollIntoView(); toast(`已存到「${bookName(n.book)}」`); }
-    setTimeout(() => (title ? $("#nbEditor textarea") : $("#nbEditor .title"))?.focus(), 50);
-  }
-  $("#newNote").onclick = () => createNote(curBook);
 
   function mdRender(src) {
     const inline = (s) => esc(s)
@@ -358,78 +344,58 @@
       .replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g, '$1<a href="$2" target="_blank" rel="noopener">$2</a>');
     let html = "", list = null;
     const close = () => { if (list) { html += `</${list}>`; list = null; } };
-    for (const line of src.split("\n")) {
+    for (const line of String(src || "").split("\n")) {
       let m;
       if ((m = line.match(/^(#{1,3})\s+(.*)/))) { close(); html += `<h${m[1].length}>${inline(m[2])}</h${m[1].length}>`; }
-      else if ((m = line.match(/^\s*[-*]\s+(.*)/))) { if (list !== "ul") { close(); html += "<ul>"; list = "ul"; } html += `<li>${inline(m[1])}</li>`; }
+      else if ((m = line.match(/^\s*[-*]\s+(\[[ x]\]\s*)?(.*)/))) { if (list !== "ul") { close(); html += "<ul>"; list = "ul"; } html += `<li>${m[1] ? (m[1].includes("x") ? "☑ " : "☐ ") : ""}${inline(m[2])}</li>`; }
       else if ((m = line.match(/^\s*\d+\.\s+(.*)/))) { if (list !== "ol") { close(); html += "<ol>"; list = "ol"; } html += `<li>${inline(m[1])}</li>`; }
       else if ((m = line.match(/^>\s?(.*)/))) { close(); html += `<blockquote>${inline(m[1])}</blockquote>`; }
-      else if (line.trim() === "") { close(); }
+      else if (line.trim() === "" || line.trim() === "---") { close(); }
       else { close(); html += `<p>${inline(line)}</p>`; }
     }
     close();
     return html;
   }
 
-  function bookOptions(sel) {
-    const opt = (v, l) => `<option value="${v}" ${sel === v ? "selected" : ""}>${esc(l)}</option>`;
-    return opt("summary", "統整筆記") + domains.map((d) => opt(d.id, d.name)).join("") + notesDB.courses.map((c) => opt(c.id, "課程｜" + c.name)).join("");
-  }
   function renderEditor() {
-    const n = notesDB.notes.find((x) => x.id === curNote);
+    const n = allNotes().find((x) => x.id === curNote);
     if (!n) {
-      $("#nbEditor").innerHTML = `<div class="nb-empty">${icon("pen")}選一則筆記，或按「新筆記」開始寫。</div>`;
+      $("#nbEditor").innerHTML = `<div class="nb-empty">${icon("pen")}選一則筆記閱讀；要寫新筆記，按「新筆記」會打開 Notion。</div>`;
       return;
     }
     $("#nbEditor").innerHTML = `
-      <input class="title" id="noteTitle" placeholder="筆記標題" value="${esc(n.title)}">
-      <div class="nb-bar">
-        <span>筆記本</span><select id="noteBook">${bookOptions(n.book)}</select>
-        <span>標籤</span><input id="noteTags" placeholder="用逗號分隔" value="${esc((n.tags || []).join(", "))}">
-        <span class="spacer"></span>
-        <div class="seg"><button data-mode="edit" class="${mode === "edit" ? "on" : ""}">編輯</button><button data-mode="view" class="${mode === "view" ? "on" : ""}">預覽</button></div>
+      <div class="nb-reader-head">
+        <h3>${esc(n.title || "未命名筆記")}</h3>
+        ${n.pending ? `<span class="queued">⏳ 下次同步時會寫進 Notion</span>` : `<a class="btn btn-red btn-sm" href="${esc(n.url)}" target="_blank" rel="noopener">${icon("pen")} 在 Notion 編輯</a>`}
       </div>
-      ${mode === "edit" ? `<textarea id="noteBody" placeholder="開始寫筆記…支援 # 標題、- 清單、**粗體**、> 引用">${esc(n.body)}</textarea>` : `<div class="md">${mdRender(n.body) || '<p class="nb-hint">（空白）</p>'}</div>`}
-      <div class="nb-bar">
-        <button class="mini-btn" id="notePin">${n.pinned ? "★ 已收進統整" : "☆ 收進統整"}</button>
-        <button class="mini-btn" id="noteDel">${icon("trash")} 刪除</button>
-        <span class="spacer"></span>
-        <span class="saved" id="savedHint">已自動儲存 · ${new Date(n.updated).toLocaleString("zh-TW", { hour12: false })}</span>
-      </div>`;
+      <div class="nb-meta">
+        <span>${esc(n.course ? "課程｜" + n.course : bookName(n.book))}</span>
+        ${n.pinned ? `<span class="pin">★ 收進統整</span>` : ""}
+        ${(n.tags || []).map((t) => `<span>#${esc(t)}</span>`).join("")}
+        ${n.source ? `<span><a href="${esc(n.source)}" target="_blank" rel="noopener" style="color:inherit">來源 ↗</a></span>` : ""}
+      </div>
+      <div class="md">${mdRender(n.body) || '<p class="nb-hint">（空白）</p>'}</div>`;
   }
-  let saveTimer;
-  function touch(n) {
-    n.updated = Date.now();
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(() => { saveNotes(); renderNoteList(); renderBooks(); const h = $("#savedHint"); if (h) h.textContent = "已自動儲存 · " + new Date(n.updated).toLocaleString("zh-TW", { hour12: false }); }, 400);
-  }
-  $("#nbEditor").addEventListener("input", (e) => {
-    const n = notesDB.notes.find((x) => x.id === curNote);
-    if (!n) return;
-    if (e.target.id === "noteTitle") n.title = e.target.value;
-    else if (e.target.id === "noteBody") n.body = e.target.value;
-    else if (e.target.id === "noteTags") n.tags = e.target.value.split(/[,，]/).map((s) => s.trim()).filter(Boolean);
-    else return;
-    touch(n);
-  });
-  $("#nbEditor").addEventListener("change", (e) => {
-    if (e.target.id !== "noteBook") return;
-    const n = notesDB.notes.find((x) => x.id === curNote);
-    n.book = e.target.value; n.updated = Date.now(); saveNotes();
-    curBook = n.book; renderBooks(); renderNoteList(); toast(`已移到「${bookName(n.book)}」`);
-  });
-  $("#nbEditor").addEventListener("click", (e) => {
-    const n = notesDB.notes.find((x) => x.id === curNote);
-    if (!n) return;
-    const m = e.target.closest("[data-mode]");
-    if (m) { mode = m.dataset.mode; renderEditor(); return; }
-    if (e.target.closest("#notePin")) { n.pinned = !n.pinned; saveNotes(); renderEditor(); renderNoteList(); renderBooks(); toast(n.pinned ? "已收進統整筆記" : "已從統整筆記移除"); }
-    if (e.target.closest("#noteDel")) {
-      if (!confirm(`刪除「${n.title || "未命名筆記"}」？刪除後無法復原（除非你有匯出備份）。`)) return;
-      notesDB.notes = notesDB.notes.filter((x) => x.id !== n.id); saveNotes();
-      curNote = null; renderBooks(); renderNoteList(); renderEditor();
+
+  // 「存成筆記」：送進本機佇列，排程同步時寫進 Notion
+  async function createNote(book, title = "", body = "", tags = [], source = "") {
+    const item = { book: bookToName(book), course: "", title, body, tags, source };
+    try {
+      const r = await fetch("api/notion-queue", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(item) });
+      if (!r.ok) throw new Error();
+      const d = await r.json();
+      pending.push({ ...item, queuedAt: new Date().toISOString().slice(0, 19) }); store.set("notionPending", pending);
+      curBook = book; curNote = "pending-" + (pending.length - 1);
+      renderBooks(); renderNoteList(); renderEditor();
+      $("#notes").scrollIntoView();
+      toast(`已排入 Notion 同步佇列（共 ${d.queued} 則待同步）`);
+    } catch {
+      // 沒有本機伺服器時：複製成 Markdown，打開 Notion 手動貼上
+      try { await navigator.clipboard.writeText(`# ${title}\n\n${body}`); } catch {}
+      if (notionDb) window.open(notionDb, "_blank", "noopener");
+      toast("已複製筆記內容，貼到 Notion 新頁面即可");
     }
-  });
+  }
 
   function download(name, text, type) {
     const a = document.createElement("a");
@@ -437,25 +403,14 @@
     a.download = name; a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   }
-  $("#exportJson").onclick = () => { download(`craigs-fintech-notes-${todayStr}.json`, JSON.stringify(notesDB, null, 2), "application/json"); toast("已匯出備份檔"); };
   $("#exportMd").onclick = () => {
-    const books = ["summary", ...domains.map((d) => d.id), ...notesDB.courses.map((c) => c.id)];
+    const books = ["summary", ...domains.map((d) => d.id), ...courses().map((c) => "c:" + c)];
     const md = `# Craig's FinTech Lab 筆記（${todayStr}）\n\n` + books.map((b) => {
-      const ns = notesDB.notes.filter((n) => n.book === b);
+      const ns = notionNotes.filter((n) => b.startsWith("c:") ? n.course === b.slice(2) : n.book === b && !n.course);
       return ns.length ? `# ${bookName(b)}\n\n` + ns.map((n) => `## ${n.title || "未命名筆記"}\n\n${n.body}\n`).join("\n") : "";
     }).filter(Boolean).join("\n---\n\n");
     download(`craigs-fintech-notes-${todayStr}.md`, md, "text/markdown");
     toast("已匯出 Markdown");
-  };
-  $("#importJson").onchange = (e) => {
-    const f = e.target.files[0];
-    if (!f) return;
-    f.text().then((t) => {
-      const d = JSON.parse(t);
-      if (!Array.isArray(d.notes)) throw new Error("bad");
-      if (!confirm(`匯入 ${d.notes.length} 則筆記？目前這台電腦上的筆記會被取代。`)) return;
-      notesDB = { courses: d.courses || [], notes: d.notes }; saveNotes(); selectBook("summary"); toast("匯入完成");
-    }).catch(() => toast("檔案格式不正確")).finally(() => { e.target.value = ""; });
   };
 
   // ---- 職缺 ----
@@ -500,7 +455,7 @@
           <div class="c"><h4>🐟 一吃：課堂素材</h4><p>${esc(t.classUse.replace(/^課堂：/, ""))}</p></div>
           <div class="t"><h4>🐟 二吃：論文切角</h4><p>${esc(t.thesisAngle.replace(/^論文：/, ""))}</p></div>
         </div>
-        <div class="thesis-method"><span>${t.method ? `<b>可行方法：</b>${esc(t.method)}` : ""}</span><button class="link-btn" data-th="${thesis.indexOf(t)}">${icon("pen")} 存成筆記</button></div>
+        <div class="thesis-method"><span>${t.method ? `<b>可行方法：</b>${esc(t.method)}` : ""}</span><button class="link-btn private-only" data-th="${thesis.indexOf(t)}">${icon("pen")} 存成筆記</button></div>
       </article>`).join("") : `<p class="empty">這個領域還沒有論文線索。</p>`;
     observeStagger($("#thesisList"));
   }
@@ -509,7 +464,7 @@
     if (!b) return;
     const t = thesis[Number(b.dataset.th)];
     createNote(t.domain || "summary", "論文線索｜" + t.headline,
-      `> ${t.date}｜${t.link}\n\n## 一吃：課堂素材\n${t.classUse.replace(/^課堂：/, "")}\n\n## 二吃：論文切角\n${t.thesisAngle.replace(/^論文：/, "")}\n\n## 可行方法\n${t.method || ""}\n\n## 我的想法\n- `, ["論文"]);
+      `> ${t.date}｜${t.link}\n\n## 一吃：課堂素材\n${t.classUse.replace(/^課堂：/, "")}\n\n## 二吃：論文切角\n${t.thesisAngle.replace(/^論文：/, "")}\n\n## 可行方法\n${t.method || ""}\n\n## 我的想法\n- `, ["論文"], t.link);
   });
 
   // ---- 課程平台（整理自 CLN 線上學習平台比較）----
@@ -551,7 +506,7 @@
   renderHeroCard(); renderTicker(); renderStats(); renderDomains();
   if (isPrivate) { renderEventFilters(); renderCal(); renderEvents(); }
   renderLibFilters(); renderLibrary();
-  saveNotes(); renderBooks(); renderNoteList(); renderEditor();
+  if (isPrivate) { renderBooks(); renderNoteList(); renderEditor(); }
   renderJobFilters(); renderJobs();
   renderThesisFilters(); renderThesis();
   renderPlatforms();

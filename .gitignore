@@ -3,3 +3,5 @@ data/events.js
 .claude/
 .DS_Store
 __pycache__/
+data/notes.js
+data/notion-queue.json

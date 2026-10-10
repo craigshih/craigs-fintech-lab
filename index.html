@@ -137,33 +137,37 @@
     <section class="section section-dark" id="notes">
       <div class="wrap">
         <div class="section-head reveal">
-          <p class="eyebrow"><svg class="ic"><use href="#i-pen"/></svg> Notebook</p>
+          <p class="eyebrow"><svg class="ic"><use href="#i-pen"/></svg> Notebook · Notion</p>
           <h2>我的筆記</h2>
-          <p class="sub">各領域、各課程的筆記分開放，「統整筆記」把重點收在一起。筆記只存在這台電腦的瀏覽器裡，記得定期按「匯出備份」。</p>
+          <p class="sub">筆記寫在 Notion，各領域、各課程分開放，「統整筆記」把重點收在一起。每天早晚同步到這裡。<span class="updated" id="notesSynced"></span></p>
         </div>
-        <div class="nb reveal">
+        <div class="nb reveal private-only">
           <aside class="nb-side">
             <div class="nb-group">總覽</div>
             <div id="nbBooksMain"></div>
             <div class="nb-group">五大領域</div>
             <div id="nbBooksDomain"></div>
-            <div class="nb-group">課程 <button class="mini-btn" id="addCourse" title="新增課程筆記本"><svg class="ic"><use href="#i-plus"/></svg></button></div>
+            <div class="nb-group">課程</div>
             <div id="nbBooksCourse"></div>
             <div class="nb-io">
-              <button class="mini-btn wide" id="exportJson"><svg class="ic"><use href="#i-download"/></svg> 匯出備份</button>
+              <a class="mini-btn wide" id="openNotion" target="_blank" rel="noopener"><svg class="ic"><use href="#i-external"/></svg> 在 Notion 打開</a>
               <button class="mini-btn wide" id="exportMd"><svg class="ic"><use href="#i-download"/></svg> 匯出 Markdown</button>
-              <label class="mini-btn wide"><svg class="ic"><use href="#i-upload"/></svg> 匯入備份<input type="file" id="importJson" accept=".json" hidden></label>
             </div>
           </aside>
           <div class="nb-list">
             <div class="nb-list-head">
               <h3 id="nbTitle">統整筆記</h3>
-              <button class="btn btn-red btn-sm" id="newNote"><svg class="ic"><use href="#i-plus"/></svg> 新筆記</button>
+              <a class="btn btn-red btn-sm" id="newNote" target="_blank" rel="noopener"><svg class="ic"><use href="#i-plus"/></svg> 新筆記</a>
             </div>
             <label class="search dark"><svg class="ic"><use href="#i-search"/></svg><input type="search" id="noteSearch" placeholder="搜尋筆記…"></label>
             <ul id="noteList"></ul>
           </div>
           <div class="nb-editor" id="nbEditor"></div>
+        </div>
+        <div class="nb-public public-only reveal">
+          <svg class="ic"><use href="#i-lock"/></svg>
+          <h3>筆記放在 Craig 的 Notion</h3>
+          <p>筆記是私人的，只在 Craig 自己電腦上的本機版顯示。</p>
         </div>
       </div>
     </section>
@@ -234,7 +238,7 @@
   <script>
     // 排程會覆寫 data/*.js，加時間戳避免讀到舊快取；events.js 是私人檔，公開網站上不存在
     (function () {
-      var files = ["data/domains.js", "data/events.js", "data/jobs.js", "data/thesis.js", "data/library.js", "app.js"], t = Date.now();
+      var files = ["data/domains.js", "data/events.js", "data/jobs.js", "data/thesis.js", "data/library.js", "data/notes.js", "app.js"], t = Date.now();
       (function next(i) {
         if (i >= files.length) return;
         var s = document.createElement("script");

@@ -33,6 +33,7 @@ button { font-family: inherit; }
 .hl { color: var(--yellow); }
 .ic { width: 1.05em; height: 1.05em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.15em; flex-shrink: 0; }
 body.public .private-only { display: none !important; }
+body:not(.public) .public-only { display: none !important; }
 
 /* scroll progress */
 .scroll-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--red), var(--yellow)); z-index: 100; }
@@ -369,3 +370,15 @@ body.public .private-only { display: none !important; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .anim-up, .reveal, .stagger > * { opacity: 1 !important; transform: none !important; }
 }
+
+/* Notion notes */
+.nb-public { background: var(--black-2); border: 1px dashed var(--line); border-radius: var(--radius); padding: 48px 24px; text-align: center; color: #bdb6ab; }
+.nb-public .ic { width: 40px; height: 40px; color: var(--yellow); }
+.nb-public h3 { color: #fff; margin: 12px 0 6px; }
+a.mini-btn { text-decoration: none; }
+.nb-reader-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; flex-wrap: wrap; }
+.nb-reader-head h3 { margin: 0; font-size: 22px; color: #fff; }
+.nb-meta { display: flex; gap: 6px; flex-wrap: wrap; font-size: 12px; }
+.nb-meta span { background: var(--black-3); border: 1px solid var(--line); color: #ccc; padding: 2px 8px; border-radius: 99px; }
+.nb-meta span.pin { color: var(--yellow); border-color: #5a4a12; }
+.queued { font-size: 12px; color: var(--yellow); }

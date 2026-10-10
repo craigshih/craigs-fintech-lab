@@ -4,6 +4,100 @@ window.FT = window.FT || {};
 window.FT.libraryUpdated = "2026-10-11";
 window.FT.library = [
   {
+    type: "論文", domain: "digital-assets", date: "2026-09", source: "NBER Working Paper 35768（Bordo & Wilkins）",
+    title: "Money and Power: Historical Lessons for Stablecoins and U.S. Dollar Dominance",
+    link: "https://www.nber.org/papers/w35768",
+    points: [
+      "回顧英、美、加、瑞典、瑞士的私人貨幣史，結論是能否維持面值取決於制度安排，而不是支付技術",
+      "提出私人貨幣可規模化的五個基礎：可信的兌換性、高品質透明的準備、一致的監理範圍、面值清算基礎設施、危機處理與損失分配規則",
+      "GENIUS Act 對前幾項處理較完整，但危機處理與跨境協調仍是明顯缺口",
+      "美元穩定幣能擴大美元結算的觸角，但能否強化美元地位，仍取決於美國制度信任、財政能力與貨幣政策可信度",
+      "研究啟示：五個基礎可直接當成比較各國穩定幣法制（含台灣虛擬資產服務法）的分析框架"
+    ]
+  },
+  {
+    type: "監理文件", domain: "digital-assets", date: "2026-08-18", source: "U.S. Treasury（Thomson Reuters 報導）",
+    title: "Treasury proposes rules defining stablecoin issuance, sales in U.S.",
+    link: "https://tax.thomsonreuters.com/news/treasury-proposes-rules-defining-stablecoin-issuance-sales-in-u-s/",
+    points: [
+      "財政部依 GENIUS Act 第 3 條提出規則草案，界定什麼行為算是在美國「發行、提供或銷售」支付型穩定幣",
+      "「發行」定義為發行人首次移轉穩定幣、使對方取得使用或贖回權；贖回後再流通視為新的發行",
+      "「發行人」以負有固定金額贖回義務者認定，用來釐清白牌 (white-label) 合作中的角色",
+      "境外發行人只要不在美國、不對美國人行銷並有防範政策，即適用安全港；財政部也在考慮類似 Regulation S 的替代做法",
+      "發行禁令預計 2027-01-18 生效，對服務提供者的禁令則在 2028-07-18 生效"
+    ]
+  },
+  {
+    type: "新聞報導", domain: "digital-assets", date: "2026-10-10", source: "經濟日報",
+    title: "穩定幣發行 金管會將允跨業合資",
+    link: "https://udn.com/news/story/7239/9805542",
+    points: [
+      "金管會預計下個月預告《虛擬資產服務法》子法，穩定幣發行是重點之一",
+      "除了銀行獨資發行，也研議讓銀行與科技業、VASP、境外發行商合資發行，但會限制銀行持股比例",
+      "銀行本身最低資本額已達 100 億元，審查重點可能在近年有無重大違規裁罰等法遵紀錄",
+      "學者楊岳平研判境外夥伴較可能是香港、新加坡、日本已取得牌照的業者，而不是 Tether 或 Circle",
+      "研究啟示：台灣是「銀行主導 + 合資」路線，可與美國 GENIUS Act 開放非銀行發行的模式做對照"
+    ]
+  },
+  {
+    type: "白皮書", domain: "payments", date: "2026-03", source: "BIS Papers No 167（Claessens & Rice）",
+    title: "Cross-border payment technologies: innovations and challenges",
+    link: "https://www.bis.org/publ/bppdf/bispap167.pdf",
+    points: [
+      "跨境支付（含匯款與零售）在成本、速度、可及性與透明度上，仍明顯落後國內支付",
+      "作者認為跨境支付存在多種市場失靈，單靠私部門無法解決，需要公部門主動協作",
+      "最主要的瓶頸是互通性不足，根源在多邊市場摩擦與各國制度差異",
+      "政策建議：統一訊息傳輸等標準、提升法遵機制效率、強化競爭；私部門也在試行以穩定幣與代幣化資產做跨境支付"
+    ]
+  },
+  {
+    type: "研究報告", domain: "wealth", date: "2026-09-09", source: "Cerulli Associates × Vista Equity Partners",
+    title: "State of Wealth Management AI Adoption",
+    link: "https://www.vistaequitypartners.com/news/advisor-headcount-set-to-grow-as-ai-expands-capacity/",
+    points: [
+      "樣本為 68 家美國大型 RIA（合計管理約 1.2 兆美元），2026 年 5–7 月調查",
+      "AI 支出占科技預算比重預計從 8% 提高到 15%；每家平均 AI 專屬支出約 49.4 萬美元（2025 年約 23.7 萬）",
+      "AI 沒有取代顧問：多數公司計畫增聘初階顧問（73%）、客服助理（67%）與資深顧問（56%）",
+      "64% 表示 AI 減少了行政作業；依成熟度分級，只有 12% 屬於領先者，一半仍在探索階段",
+      "結論：決定 AI 成效的是營運紀律，不是公司規模或預算"
+    ],
+    verify: true
+  },
+  {
+    type: "監理報告", domain: "sustainable", date: "2026-09-21", source: "NGFS",
+    title: "Guide for supervisors: Integrating climate and nature-related risks into prudential supervision（2026）",
+    link: "https://www.ngfs.net/en/press-release/ngfs-publishes-2026-guide-supervisors-climate-and-nature-related-financial-risks",
+    points: [
+      "更新 2020 年版監理指引，把氣候與「自然」相關金融風險一起納入審慎監理",
+      "內容涵蓋：實體與轉型風險的傳導管道、與監理職權的關係、組織安排、曝險評估、監理期望與總體／個體審慎工具",
+      "新增轉型計畫、調適 (adaptation)、情境與壓力測試、氣候訴訟風險與揭露框架等主題",
+      "採「漸進且符合比例」原則，讓不同資源與起點的監理機關都能套用；依據涵蓋 70% 會員轄區的監理機關調查"
+    ]
+  },
+  {
+    type: "新聞報導", domain: "sustainable", date: "2026-09-23", source: "Business Insider Taiwan",
+    title: "金管會重劃永續揭露門檻：資本額20億以下不強制、1400 家暫緩接軌",
+    link: "https://www.businessinsider.tw/article/7473",
+    points: [
+      "金管會與環境部宣布，IFRS 永續揭露準則強制接軌家數由約 1,970 家降到約 560 家",
+      "三階段：資本額 100 億以上 126 家（2026）、50–100 億 118 家（2027）、20–50 億及環境部列管者 316 家（2028）",
+      "第三階段範疇三改為自願；保留下來的公司仍涵蓋逾 87% 市值與約 96% 範疇一、二排放",
+      "調整理由：中小企業缺工具與人力、國內確信機構量能不足，且歐盟、日、韓也在縮小適用範圍"
+    ]
+  },
+  {
+    type: "企業報告", domain: "insurtech", date: "2026-08-06", source: "Gallagher Re（Reinsurance News 報導）",
+    title: "Global InsurTech Report Q2 2026",
+    link: "https://www.reinsurancene.ws/insurtech-funding-hits-four-year-high-as-ai-firms-capture-99-of-investment-gallagher-re/",
+    points: [
+      "2026 年第二季保險科技募資 24.4 億美元，是 2022 年第二季以來最高的單季金額",
+      "AI 相關公司拿走 99.1% 的資金（約 24.2 億美元、95 筆交易），資金高度集中在 AI",
+      "億元級大型輪次回歸，合計約 16.7 億美元；交易數 107 筆，但早期輪次金額季減 51.8%",
+      "這波回升主要由創投與私募推動，(再)保險公司本身參與 27 筆科技投資"
+    ],
+    verify: true
+  },
+  {
     type: "監理報告", domain: "digital-assets", date: "2026-06", source: "BIS Annual Economic Report 2026",
     title: "Anchoring trust in money: innovation beyond stablecoins（BIS 年報第三章）",
     link: "https://www.jakeclaver.com/bis-annual-economic-report-2026-stablecoins-and-dollarization/",

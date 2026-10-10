@@ -5,3 +5,4 @@ data/events.js
 __pycache__/
 data/notes.js
 data/notion-queue.json
+data/course-progress.json

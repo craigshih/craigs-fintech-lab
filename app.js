@@ -13,6 +13,39 @@
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const icon = (id, cls = "ic") => `<svg class="${cls}"><use href="#i-${id}"/></svg>`;
   const domainById = Object.fromEntries(domains.map((d) => [d.id, d]));
+  // ---- 品牌 logo：依名稱關鍵字對應官方網域，抓網站圖示；抓不到就顯示字母徽章 ----
+  const BRANDS = [
+    [/coursera/i, "coursera.org"], [/udemy/i, "udemy.com"], [/edx/i, "edx.org"], [/hahow/i, "hahow.in"], [/tibame/i, "tibame.com"],
+    [/pressplay/i, "pressplay.cc"], [/天下學習/, "cwlearning.com.tw"], [/yotta|友讀/i, "yottau.com.tw"],
+    [/wharton|華頓/i, "wharton.upenn.edu"], [/university of pennsylvania|upenn/i, "upenn.edu"], [/hkust|香港科技/i, "hkust.edu.hk"],
+    [/edhec/i, "edhec.edu"], [/michigan/i, "umich.edu"], [/toronto/i, "utoronto.ca"],
+    [/\bBIS\b/, "bis.org"], [/\bIMF\b/, "imf.org"], [/\bBCG\b/, "bcg.com"], [/mckinsey/i, "mckinsey.com"], [/swift/i, "swift.com"],
+    [/gallagher/i, "ajg.com"], [/ntt data/i, "nttdata.com"], [/\bNBER\b/, "nber.org"], [/treasury/i, "treasury.gov"], [/\bNGFS\b/, "ngfs.net"],
+    [/ISSB|IFRS/, "ifrs.org"], [/金管會|銀行局/, "fsc.gov.tw"], [/央行|中央銀行/, "cbc.gov.tw"], [/證交所|證券交易所/, "twse.com.tw"],
+    [/經濟日報/, "udn.com"], [/business insider/i, "businessinsider.com"], [/cerulli/i, "cerulli.com"], [/\bAAII\b/, "aaii.com"],
+    [/juniper/i, "juniperresearch.com"], [/\bESMA\b/, "esma.europa.eu"], [/world bank|世界銀行/i, "worldbank.org"], [/\bFSB\b/, "fsb.org"],
+    [/\bOECD\b/, "oecd.org"], [/deloitte|勤業/i, "deloitte.com"], [/\bPwC\b|資誠/i, "pwc.com"], [/\bKPMG\b|安侯/i, "kpmg.com"], [/\bEY\b|安永/, "ey.com"],
+    [/HSBC|滙豐/i, "hsbc.com.tw"], [/第一銀行/, "firstbank.com.tw"], [/DBS|星展/i, "dbs.com.tw"], [/富邦/, "fubon.com"], [/花旗|citi/i, "citi.com"],
+    [/玉山/, "esunbank.com"], [/永豐/, "sinopac.com"], [/國泰/, "cathayholdings.com"], [/中國信託|中信/, "ctbcbank.com"], [/台新/, "taishinbank.com.tw"],
+    [/point72/i, "point72.com"], [/^104/, "104.com.tw"], [/^cake/i, "cake.me"], [/^yourator/i, "yourator.co"], [/政大|NCCU/i, "nccu.edu.tw"]
+  ];
+  // 這些網站只是轉載 / 人力銀行 / 學校公告，不代表品牌本身
+  const AGGREGATORS = /yes123|career\.ntu|cd\.nccu|money\.udn|104\.com|yourator|cake\.me|indeed|linkedin|classcentral|careers360|course\.careers|onestopesg|jakeclaver|walnutinvest|google\./;
+  function brandDomain(name, link, allowHost = true) {
+    for (const [re, d] of BRANDS) if (re.test(name || "")) return d;
+    if (!allowHost || !link) return "";
+    try { const h = new URL(link).hostname.replace(/^www\./, ""); return AGGREGATORS.test(h) ? "" : h; } catch { return ""; }
+  }
+  function logo(name, link, allowHost = true, cls = "") {
+    const d = brandDomain(name, link, allowHost);
+    const letter = esc((String(name || "?").replace(/[^\p{L}\p{N}]/gu, "")[0] || "?").toUpperCase());
+    return d ? `<span class="brand ${cls}" data-letter="${letter}"><img src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(d)}&sz=64" alt="" loading="lazy" referrerpolicy="no-referrer"></span>`
+             : `<span class="brand ${cls} letter">${letter}</span>`;
+  }
+  document.addEventListener("error", (e) => {
+    const img = e.target;
+    if (img.tagName === "IMG" && img.parentElement?.classList.contains("brand")) { const b = img.parentElement; b.classList.add("letter"); b.textContent = b.dataset.letter; }
+  }, true);
   const domainLabel = (id) => (domainById[id] ? `#${domainById[id].no} ${domainById[id].name}` : "綜合");
 
   // ---- 本機儲存（只存在這台瀏覽器）----
@@ -144,7 +177,8 @@
           ${l.items.map((it, ii) => { const k = pathKey(d, li, ii); return `<label class="check ${progress[k] ? "done" : ""}"><input type="checkbox" data-k="${k}" ${progress[k] ? "checked" : ""}><span>${esc(it)}</span></label>`; }).join("")}
         </div>`).join("")}
         <h3>推薦課程</h3>
-        ${d.courses.map((c) => `<a class="course" target="_blank" rel="noopener" href="${(FT.platforms[c.platform] || "https://www.google.com/search?q=") + encodeURIComponent(c.q)}"><span>${esc(c.title)}</span><small>${esc(c.platform)} ↗</small></a>`).join("")}
+        ${activeCourses(d.id).length ? activeCourses(d.id).map((c) => `<a class="course" target="_blank" rel="noopener" href="${esc(c.link)}">${logo(c.platform, "", false)}<span>${esc(c.title)}<br><small class="muted">${esc(c.provider)}・${esc(c.level)}</small></span><small>${esc(c.platform)} ↗</small></a>`).join("") : `<p class="empty">這週的課都上完了 🎉 下週一會推薦新的。</p>`}
+        <p><a class="link-btn" href="#courses" data-close-drawer>${icon("arrow")} 看本週全部推薦課程</a></p>
         <h3 class="private-only">我的筆記</h3>
         <p class="private-only">這個領域目前有 <b>${noteCount}</b> 則筆記。 <button class="link-btn" data-open-book="${d.id}">${icon("pen")} 打開${esc(d.name)}筆記本</button></p>
         <h3>論文關鍵字</h3>
@@ -171,6 +205,7 @@
     renderDomains(); renderStats();
   });
   $("#drawerBody").addEventListener("click", (e) => {
+    if (e.target.closest("[data-close-drawer]")) closeDrawer();
     const b = e.target.closest("[data-open-book]");
     if (b) { closeDrawer(); selectBook(b.dataset.openBook); $("#notes").scrollIntoView(); }
   });
@@ -258,7 +293,7 @@
     $("#libGrid").innerHTML = list.length ? list.map((l) => {
       const i = library.indexOf(l), cat = libCat(l.type);
       return `<article class="lib">
-        <div class="lib-top"><span class="lib-type">${icon(catIcon[cat])}</span>
+        <div class="lib-top">${logo(l.source, l.link, true, "lg")}<span class="lib-type sm" title="${esc(cat)}">${icon(catIcon[cat])}</span>
           <div class="lib-meta"><b>${esc(l.type)} · ${esc(domainLabel(l.domain))}</b>${esc(l.source)} · ${esc(l.date)}</div></div>
         <h3>${esc(l.title)}</h3>
         <ul>${(l.points || []).map((p) => `<li>${icon("check")}${esc(p)}</li>`).join("")}</ul>
@@ -448,7 +483,7 @@
       (!q || [j.company, j.title, j.note, j.location, j.type].join(" ").toLowerCase().includes(q)));
     $("#jobGrid").innerHTML = list.length ? list.map((j) => `
       <article class="job">
-        <div class="job-company">${icon(j.domain || "briefcase")}${esc(j.company)}</div>
+        <div class="job-company">${logo(j.company, j.link)}${esc(j.company)}</div>
         <h3>${esc(j.title)}</h3>
         <div class="job-meta">${j.private ? `<span class="lock">🔒 實驗室內部</span>` : ""}<span>${esc(j.type)}</span><span>📍 ${esc(j.location)}</span>${j.status ? `<span>${esc(j.status)}</span>` : ""}</div>
         <p>${esc(j.note)}</p>
@@ -469,7 +504,7 @@
     $("#thesisList").innerHTML = list.length ? list.map((t) => `
       <article class="thesis">
         <div class="thesis-head">
-          <div class="meta"><span>${t.date.replace(/-/g, "/")}</span><span class="badge">${icon(t.domain)} ${esc(domainLabel(t.domain))}</span><span>論文適配度 <span class="stars">${"★".repeat(t.fit || 0)}${"☆".repeat(5 - (t.fit || 0))}</span></span></div>
+          <div class="meta">${logo(t.source || "", t.link)}<span>${t.date.replace(/-/g, "/")}</span><span class="badge">${icon(t.domain)} ${esc(domainLabel(t.domain))}</span><span>論文適配度 <span class="stars">${"★".repeat(t.fit || 0)}${"☆".repeat(5 - (t.fit || 0))}</span></span></div>
           <h3><a href="${esc(t.link)}" target="_blank" rel="noopener">${esc(t.headline)} ↗</a></h3>
         </div>
         <div class="fish">
@@ -488,6 +523,66 @@
       `> ${t.date}｜${t.link}\n\n## 一吃：課堂素材\n${t.classUse.replace(/^課堂：/, "")}\n\n## 二吃：論文切角\n${t.thesisAngle.replace(/^論文：/, "")}\n\n## 可行方法\n${t.method || ""}\n\n## 我的想法\n- `, { type: "💡 論文構想", sourceType: "📰 新聞", link: t.link, published: t.date, uses: ["🎯 論文"] });
   });
 
+  // ---- 每週課程推薦 ----
+  // 上完 → 本機記錄（localStorage）＋本機伺服器寫入 data/course-progress.json，讓每週排程知道你上完哪些、推薦下一階
+  const weeklyCourses = FT.courses || [];
+  let doneCourses = store.get("doneCourses", {});
+  let courseFilter = "all";
+  const PER_DOMAIN = 2;
+  function activeCourses(domainId) {
+    const left = weeklyCourses.filter((c) => c.domain === domainId && !doneCourses[c.id]);
+    return [...left.filter((c) => c.slot === "pick"), ...left.filter((c) => c.slot !== "pick")].slice(0, PER_DOMAIN);
+  }
+  function renderCourseFilters() {
+    $("#courseFilters").innerHTML = [["all", "全部領域"], ...domains.map((d) => [d.id, d.name])]
+      .map(([v, l]) => `<button class="chip ${courseFilter === v ? "on" : ""}" data-v="${v}">${v !== "all" ? icon(v) : ""}${esc(l)}</button>`).join("");
+  }
+  $("#courseFilters").addEventListener("click", (e) => { const b = e.target.closest("[data-v]"); if (b) { courseFilter = b.dataset.v; renderCourseFilters(); renderCourses(); } });
+  function renderCourses(flashId) {
+    if (FT.coursesWeek) $("#coursesWeek").textContent = `本週：${FT.coursesWeek.replace(/-/g, "/")} 起`;
+    const list = domains.filter((d) => courseFilter === "all" || d.id === courseFilter).flatMap((d) => {
+      const act = activeCourses(d.id);
+      return act.length ? act : [{ empty: true, domain: d.id }];
+    });
+    $("#courseGrid").innerHTML = list.map((c) => c.empty ? `
+      <article class="course-card done-all"><div class="cc-top">${icon(c.domain)}<span>${esc(domainById[c.domain].name)}</span></div>
+        <h3>這週的課都上完了 🎉</h3><p>下週一會依你的進度推薦更進階的課。</p></article>` : `
+      <article class="course-card ${c.id === flashId ? "flash" : ""}">
+        <div class="cc-top">${logo(c.platform, "", false, "lg")}<div><b>${esc(c.platform)}</b><small>${esc(c.provider)}</small></div>
+          <span class="cc-domain">${icon(c.domain)} ${esc(domainById[c.domain]?.name || "")}</span></div>
+        <h3>${esc(c.title)}</h3>
+        <div class="job-meta"><span>${esc(c.level)}</span><span>⏱ ${esc(c.length)}</span><span>${esc(c.price)}</span>${c.slot !== "pick" ? `<span class="lock">遞補推薦</span>` : ""}</div>
+        <p>${esc(c.why)}</p>
+        ${c.verify ? `<span class="verify">資訊來自第三方課程目錄，報名前請確認</span>` : ""}
+        <div class="cc-actions">
+          <a class="btn btn-red btn-sm" href="${esc(c.link)}" target="_blank" rel="noopener">前往課程 ${icon("external")}</a>
+          <button class="btn btn-ghost-dark btn-sm" data-done="${esc(c.id)}">${icon("check")} 上完了</button>
+        </div>
+      </article>`).join("");
+    const done = weeklyCourses.filter((c) => doneCourses[c.id]);
+    $("#coursesDone").innerHTML = done.length ? `<details><summary>本週已上完 ${done.length} 堂</summary><ul>${done.map((c) => `<li>${logo(c.platform, "", false)}${esc(c.title)} <button class="link-btn" data-undo="${esc(c.id)}">復原</button></li>`).join("")}</ul></details>` : "";
+    observeStagger($("#courseGrid"));
+  }
+  async function reportCourse(c, done) {
+    try { await fetch("api/course-progress", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: c.id, title: c.title, domain: c.domain, platform: c.platform, level: c.level, done }) }); } catch {}
+  }
+  $("#courseGrid").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-done]");
+    if (!b) return;
+    const c = weeklyCourses.find((x) => x.id === b.dataset.done);
+    doneCourses[c.id] = new Date().toISOString().slice(0, 10); store.set("doneCourses", doneCourses);
+    reportCourse(c, true);
+    const next = activeCourses(c.domain).find((x) => x.slot !== "pick");
+    renderCourses(next && next.id);
+    toast(next ? `🎉 完成！已換上下一堂：${next.title}` : "🎉 完成！這個領域本週的課都上完了，下週一推薦新課");
+  });
+  $("#coursesDone").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-undo]");
+    if (!b) return;
+    const c = weeklyCourses.find((x) => x.id === b.dataset.undo);
+    delete doneCourses[c.id]; store.set("doneCourses", doneCourses); reportCourse(c, false); renderCourses();
+  });
+
   // ---- 課程平台（整理自 CLN 線上學習平台比較）----
   const platforms = [
     { name: "Coursera", fit: "最推薦", desc: "與美國名校合作，內容偏理論學術，證書受業界認可。", ft: "金融科技、區塊鏈、計量金融的專項課程最完整" },
@@ -502,7 +597,7 @@
   ];
   function renderPlatforms() {
     $("#platformGrid").innerHTML = platforms.map((p) => `
-      <div class="platform"><h3>${esc(p.name)}<span class="fit">${esc(p.fit)}</span></h3>
+      <div class="platform"><h3><span class="pf-name">${logo(p.name, "", false, "lg")}${esc(p.name)}</span><span class="fit">${esc(p.fit)}</span></h3>
       <p>${esc(p.desc)}</p><p class="ft">${esc(p.ft)}</p></div>`).join("");
   }
 
@@ -530,5 +625,6 @@
   if (isPrivate) { renderBooks(); renderSrcFilter(); renderNoteList(); renderEditor(); }
   renderJobFilters(); renderJobs();
   renderThesisFilters(); renderThesis();
+  renderCourseFilters(); renderCourses();
   renderPlatforms();
 })();

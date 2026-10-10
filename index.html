@@ -55,6 +55,7 @@
         <a href="#notes">筆記</a>
         <a href="#jobs">職缺</a>
         <a href="#thesis">論文雷達</a>
+        <a href="#courses">每週課程</a>
         <a href="#platforms">課程平台</a>
       </nav>
       <button class="nav-toggle" id="navToggle" aria-label="選單">☰</button>
@@ -202,6 +203,20 @@
       </div>
     </section>
 
+    <!-- WEEKLY COURSES -->
+    <section class="section section-dark" id="courses">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow"><svg class="ic"><use href="#i-paper"/></svg> Weekly Courses · 每週一更新</p>
+          <h2>本週課程推薦</h2>
+          <p class="sub">每個領域推薦 2 堂課。按「上完了」會立刻換上下一堂；每週一會換一批新課，上一週的推薦會清掉。<span class="updated" id="coursesWeek"></span></p>
+        </div>
+        <div class="filters" id="courseFilters"></div>
+        <div class="course-grid" id="courseGrid"></div>
+        <div class="courses-done" id="coursesDone"></div>
+      </div>
+    </section>
+
     <!-- PLATFORMS -->
     <section class="section" id="platforms">
       <div class="wrap">
@@ -239,7 +254,7 @@
   <script>
     // 排程會覆寫 data/*.js，加時間戳避免讀到舊快取；events.js 是私人檔，公開網站上不存在
     (function () {
-      var files = ["data/domains.js", "data/events.js", "data/jobs.js", "data/thesis.js", "data/library.js", "data/notes.js", "app.js"], t = Date.now();
+      var files = ["data/domains.js", "data/events.js", "data/jobs.js", "data/thesis.js", "data/library.js", "data/notes.js", "data/courses.js", "app.js"], t = Date.now();
       (function next(i) {
         if (i >= files.length) return;
         var s = document.createElement("script");

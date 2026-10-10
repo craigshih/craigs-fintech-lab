@@ -12,6 +12,7 @@
 | `data/library.js` | 知識庫（新聞、論文、白皮書、企業報告、監理文件的知識點） | 排程，每週二、六 |
 | `data/jobs.js` | 職缺 | 排程，每週一、四 |
 | `data/thesis.js` | 論文雷達（一魚兩吃） | 排程，每週一、三、五 |
+| `data/courses.js` | 每週課程推薦（上完自動遞補） | 排程，每週一（整份替換） |
 | `data/events.js` | 實驗室行事曆（**私人，不上傳**） | 排程，每天 |
 
-筆記與學習進度存在瀏覽器（localStorage），可在筆記區匯出 / 匯入備份。
+筆記在 Notion「Craig's FinTech Lab Notes」，同步到 `data/notes.js`（私人，不上傳）。上完的課程記在 `data/course-progress.json`（私人）。

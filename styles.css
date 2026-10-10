@@ -389,3 +389,45 @@ a.mini-btn { text-decoration: none; }
 .nb-source small { display: block; color: var(--muted); font-size: 11px; letter-spacing: .06em; }
 .nb-source b { color: #fff; font-size: 14px; font-weight: 500; }
 .nb-source a { color: var(--yellow); font-size: 14px; text-decoration: none; display: inline-flex; gap: 6px; align-items: center; }
+
+/* Brand logos */
+.brand { width: 26px; height: 26px; border-radius: 7px; background: #fff; border: 1px solid #e6e0d4; display: inline-grid; place-items: center; overflow: hidden; flex-shrink: 0; vertical-align: middle; font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 700; color: var(--black); }
+.brand img { width: 70%; height: 70%; object-fit: contain; }
+.brand.lg { width: 40px; height: 40px; border-radius: 10px; font-size: 17px; }
+.brand.letter { background: var(--yellow); border-color: var(--yellow); color: var(--black); }
+.section-dark .brand { border-color: #3a352f; }
+.lib-type.sm { width: 26px; height: 26px; border-radius: 7px; }
+.lib-type.sm .ic { width: 15px; height: 15px; }
+.job-company .brand { width: 22px; height: 22px; border-radius: 6px; font-size: 11px; }
+.thesis-head .meta .brand { width: 22px; height: 22px; border-radius: 6px; font-size: 11px; }
+.pf-name { display: inline-flex; align-items: center; gap: 10px; }
+.course { gap: 12px; }
+.course > span:nth-child(2) { flex: 1; }
+.muted { color: var(--muted); font-weight: 400; }
+
+/* Weekly courses */
+.course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+.course-card { background: var(--black-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 10px; transition: transform .25s var(--ease), border-color .25s; position: relative; overflow: hidden; }
+.course-card:hover { transform: translateY(-4px); border-color: #4a443c; }
+.course-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(var(--red), var(--yellow)); }
+.course-card h3 { margin: 0; font-size: 17px; line-height: 1.45; }
+.course-card p { margin: 0; color: #cfc9bf; font-size: 14px; flex: 1; }
+.cc-top { display: flex; align-items: center; gap: 10px; }
+.cc-top b { display: block; font-size: 14px; }
+.cc-top small { color: var(--muted); font-size: 12px; }
+.cc-domain { margin-left: auto; font-size: 12px; color: var(--yellow); display: inline-flex; gap: 4px; align-items: center; white-space: nowrap; }
+.course-card .job-meta span { background: var(--black-3); color: #ddd; }
+.course-card .job-meta span.lock { background: var(--yellow); color: var(--black); }
+.cc-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.btn-ghost-dark { border-color: var(--line); color: #ddd; background: transparent; }
+.btn-ghost-dark:hover { border-color: #7fd18b; color: #7fd18b; }
+.course-card.flash { animation: flash 1.4s var(--ease); }
+@keyframes flash { 0% { box-shadow: 0 0 0 0 rgba(255,200,44,.9); transform: scale(.97); } 60% { box-shadow: 0 0 0 14px rgba(255,200,44,0); transform: none; } }
+.course-card.done-all { justify-content: center; text-align: center; color: #bdb6ab; }
+.course-card.done-all .cc-top { justify-content: center; color: var(--yellow); }
+.courses-done { margin-top: 18px; color: #bdb6ab; font-size: 14px; }
+.courses-done summary { cursor: pointer; color: #fff; font-weight: 700; }
+.courses-done ul { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; }
+.courses-done li { display: flex; align-items: center; gap: 10px; text-decoration: line-through; }
+.courses-done li .link-btn { text-decoration: none; color: var(--yellow); }
+@media (max-width: 720px) { .course-grid { grid-template-columns: 1fr; } }

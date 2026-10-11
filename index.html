@@ -52,11 +52,11 @@
         <a href="#domains">五大領域</a>
         <a href="#calendar" class="private-only">行事曆</a>
         <a href="#library">知識庫</a>
-        <a href="#notes">筆記</a>
-        <a href="#jobs">職缺</a>
-        <a href="#thesis">論文雷達</a>
         <a href="#courses">每週課程</a>
         <a href="#platforms">課程平台</a>
+        <a href="#jobs">職缺</a>
+        <a href="#thesis">論文雷達</a>
+        <a href="#notes">筆記</a>
       </nav>
       <button class="nav-toggle" id="navToggle" aria-label="選單">☰</button>
     </div>
@@ -134,6 +134,61 @@
       </div>
     </section>
 
+    <!-- WEEKLY COURSES -->
+    <section class="section section-dark" id="courses">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow"><svg class="ic"><use href="#i-paper"/></svg> Weekly Courses · 每週一更新</p>
+          <h2>本週課程推薦</h2>
+          <p class="sub">每個領域推薦 2 堂課。按「上完了」會立刻換上下一堂；每週一會換一批新課，上一週的推薦會清掉。<span class="updated" id="coursesWeek"></span></p>
+        </div>
+        <div class="filters" id="courseFilters"></div>
+        <div class="course-grid" id="courseGrid"></div>
+        <div class="courses-done" id="coursesDone"></div>
+      </div>
+    </section>
+
+    <!-- PLATFORMS -->
+    <section class="section" id="platforms">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow"><svg class="ic"><use href="#i-spark"/></svg> Course Platforms</p>
+          <h2>線上課程平台</h2>
+          <p class="sub">整理自 CLN 的線上學習平台比較，標出各平台對學金融科技最有用的地方。</p>
+        </div>
+        <div class="platform-grid" id="platformGrid"></div>
+      </div>
+    </section>
+
+    <!-- JOBS -->
+    <section class="section" id="jobs">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow"><svg class="ic"><use href="#i-briefcase"/></svg> Career Radar</p>
+          <h2>金融科技職缺雷達</h2>
+          <p class="sub">每週一、四自動搜尋 104、Cake、Yourator 與銀行官網。<span class="updated" id="jobsUpdated"></span></p>
+        </div>
+        <div class="lib-tools">
+          <label class="search"><svg class="ic"><use href="#i-search"/></svg><input type="search" id="jobSearch" placeholder="搜尋公司、職稱、關鍵字…"></label>
+          <div class="filters" id="jobFilters"></div>
+        </div>
+        <div class="job-grid" id="jobGrid"></div>
+      </div>
+    </section>
+
+    <!-- THESIS -->
+    <section class="section section-dark" id="thesis">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow"><svg class="ic"><use href="#i-compass"/></svg> Thesis Radar · 一魚兩吃</p>
+          <h2>論文雷達</h2>
+          <p class="sub">同一則時事，一份拿去上課，一份拿去寫論文。每週一、三、五更新。<span class="updated" id="thesisUpdated"></span></p>
+        </div>
+        <div class="filters" id="thesisFilters"></div>
+        <div class="thesis-list" id="thesisList"></div>
+      </div>
+    </section>
+
     <!-- NOTES -->
     <section class="section section-dark" id="notes">
       <div class="wrap">
@@ -168,64 +223,17 @@
         </div>
         <div class="nb-public public-only reveal">
           <svg class="ic"><use href="#i-lock"/></svg>
-          <h3>筆記放在 Craig 的 Notion</h3>
-          <p>筆記是私人的，只在 Craig 自己電腦上的本機版顯示。</p>
+          <h3>想看 Craig 的金融科技筆記嗎？</h3>
+          <p>筆記放在 Craig 的 Notion，需要經過同意才能看。按下按鈕後，在 Notion 頁面點「要求存取權限（Request access）」，Craig 會收到通知，同意後你會收到 Email，就能看到所有筆記。</p>
+          <ol class="share-steps">
+            <li><b>1</b><span>點下方按鈕打開 Notion</span></li>
+            <li><b>2</b><span>登入或免費註冊 Notion 帳號</span></li>
+            <li><b>3</b><span>按「Request access」送出申請</span></li>
+            <li><b>4</b><span>Craig 同意後，Email 通知你</span></li>
+          </ol>
+          <a class="btn btn-yellow" href="https://www.notion.so/3f540356b27a80dc8592f8932e42dfd9" target="_blank" rel="noopener"><svg class="ic"><use href="#i-pen"/></svg> 申請查看 Craig 的筆記</a>
+          <p class="share-note">只開放「檢視」，不能修改；Craig 可以隨時收回權限。</p>
         </div>
-      </div>
-    </section>
-
-    <!-- JOBS -->
-    <section class="section" id="jobs">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow"><svg class="ic"><use href="#i-briefcase"/></svg> Career Radar</p>
-          <h2>金融科技職缺雷達</h2>
-          <p class="sub">每週一、四自動搜尋 104、Cake、Yourator 與銀行官網。<span class="updated" id="jobsUpdated"></span></p>
-        </div>
-        <div class="lib-tools">
-          <label class="search"><svg class="ic"><use href="#i-search"/></svg><input type="search" id="jobSearch" placeholder="搜尋公司、職稱、關鍵字…"></label>
-          <div class="filters" id="jobFilters"></div>
-        </div>
-        <div class="job-grid" id="jobGrid"></div>
-      </div>
-    </section>
-
-    <!-- THESIS -->
-    <section class="section section-dark" id="thesis">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow"><svg class="ic"><use href="#i-compass"/></svg> Thesis Radar · 一魚兩吃</p>
-          <h2>論文雷達</h2>
-          <p class="sub">同一則時事，一份拿去上課，一份拿去寫論文。每週一、三、五更新。<span class="updated" id="thesisUpdated"></span></p>
-        </div>
-        <div class="filters" id="thesisFilters"></div>
-        <div class="thesis-list" id="thesisList"></div>
-      </div>
-    </section>
-
-    <!-- WEEKLY COURSES -->
-    <section class="section section-dark" id="courses">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow"><svg class="ic"><use href="#i-paper"/></svg> Weekly Courses · 每週一更新</p>
-          <h2>本週課程推薦</h2>
-          <p class="sub">每個領域推薦 2 堂課。按「上完了」會立刻換上下一堂；每週一會換一批新課，上一週的推薦會清掉。<span class="updated" id="coursesWeek"></span></p>
-        </div>
-        <div class="filters" id="courseFilters"></div>
-        <div class="course-grid" id="courseGrid"></div>
-        <div class="courses-done" id="coursesDone"></div>
-      </div>
-    </section>
-
-    <!-- PLATFORMS -->
-    <section class="section" id="platforms">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow"><svg class="ic"><use href="#i-spark"/></svg> Course Platforms</p>
-          <h2>線上課程平台</h2>
-          <p class="sub">整理自 CLN 的線上學習平台比較，標出各平台對學金融科技最有用的地方。</p>
-        </div>
-        <div class="platform-grid" id="platformGrid"></div>
       </div>
     </section>
 

@@ -358,7 +358,7 @@ body:not(.public) .public-only { display: none !important; }
   .job-grid, .lib-grid { grid-template-columns: 1fr; }
   .nb { grid-template-columns: 1fr; }
   .nb-side { flex-direction: row; flex-wrap: wrap; border-right: 0; border-bottom: 1px solid var(--line); }
-  .nb-side > div { display: contents; }
+  .nb-side > div:not(.nb-group) { display: contents; }
   .nb-group { width: 100%; padding: 6px 4px; }
   .nb-book { width: auto; }
   .nb-io { width: 100%; grid-template-columns: repeat(3, 1fr); margin-top: 8px; }
@@ -463,3 +463,13 @@ p, .sub, .lead, .domain-tag, .event-note, .lib li, .job p, .course-card p { text
 .pf-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
 .pf-head h3 { margin: 0 0 3px; font-size: 17px; line-height: 1.25; display: block; }
 .pf-head .fit { display: inline-block; }
+
+/* ---------- 依螢幕大小自動調整 ----------
+   筆電以下維持原本 1180px；大螢幕放寬內容區，讓領域卡片、行事曆、知識庫、筆記攤開；
+   超大螢幕（家用大螢幕、電視）再整頁等比例放大一點，坐遠也看得清楚。
+   標題說明另外限制行寬，放寬版面也不會一行長到難讀。 */
+@media (min-width: 1440px) { .wrap { max-width: 1320px; } }
+@media (min-width: 1680px) { .wrap { max-width: 1440px; } }
+@media (min-width: 1900px) { body { zoom: 1.1; } .wrap { max-width: 1480px; } }
+@media (min-width: 2400px) { body { zoom: 1.25; } .wrap { max-width: 1600px; } }
+@media (min-width: 3200px) { body { zoom: 1.6; } }

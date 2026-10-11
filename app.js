@@ -156,12 +156,25 @@
   function openDrawer(id) {
     const d = domainById[id];
     if (!d) return;
-    const rel = [
-      ...library.filter((l) => l.domain === id).map((l) => `<div class="related"><b>知識庫</b>${esc(l.title)}</div>`),
-      ...(isPrivate ? events.filter((e) => e.domain === id).map((e) => `<div class="related"><b>行事曆</b>${esc(e.date || "")} ${esc(e.title)}</div>`) : []),
-      ...jobs.filter((j) => j.domain === id).map((j) => `<div class="related"><b>職缺</b>${esc(j.company)}｜${esc(j.title)}</div>`),
-      ...thesis.filter((t) => t.domain === id).map((t) => `<div class="related"><b>論文</b>${esc(t.headline)}</div>`)
-    ];
+    // 相關動態：依類型分組，每組最多 4 筆，行事曆只顯示未來的項目
+    const WD = "日一二三四五六";
+    const dchip = (d) => { if (!d) return ""; const x = parse(d); return `<span class="rel-date"><b>${x.getMonth() + 1}/${x.getDate()}</b><small>週${WD[x.getDay()]}</small></span>`; };
+    const relGroups = [
+      { label: "行事曆", ic: "calendar", href: "#calendar", show: isPrivate,
+        items: events.filter((e) => e.domain === id && (!e.date || e.date >= todayStr)).sort((a, b) => (a.date || "9").localeCompare(b.date || "9"))
+          .map((e) => ({ lead: dchip(e.date), title: e.title, meta: [typeName[e.type], e.time].filter(Boolean).join("・") })) },
+      { label: "知識庫", ic: "book", href: "#library", show: true,
+        items: library.filter((l) => l.domain === id).map((l) => ({ lead: logo(l.source, l.link), title: l.title, meta: `${l.type}・${l.date}` })) },
+      { label: "論文雷達", ic: "compass", href: "#thesis", show: true,
+        items: thesis.filter((t) => t.domain === id).sort((a, b) => b.date.localeCompare(a.date)).map((t) => ({ lead: logo("", t.link), title: t.headline, meta: `${t.date.slice(5).replace("-", "/")}・適配度 ${"★".repeat(t.fit || 0)}` })) },
+      { label: "職缺", ic: "briefcase", href: "#jobs", show: true,
+        items: jobs.filter((j) => j.domain === id).map((j) => ({ lead: logo(j.company, j.link), title: j.title, meta: j.company })) }
+    ].filter((g) => g.show && g.items.length);
+    const relHtml = relGroups.map((g) => `
+      <div class="rel-group">
+        <div class="rel-head">${icon(g.ic)}<span>${g.label}</span><em>${g.items.length}</em><a href="${g.href}" data-close-drawer>看全部 →</a></div>
+        <ul class="rel-list">${g.items.slice(0, 4).map((it) => `<li>${it.lead}<div class="rel-body"><p>${esc(it.title)}</p><small>${esc(it.meta)}</small></div></li>`).join("")}</ul>
+      </div>`).join("");
     const noteCount = notesIn(id).length;
     $("#drawerBody").innerHTML = `
       <div class="d-hero">
@@ -184,7 +197,7 @@
         <h3>論文關鍵字</h3>
         <div class="topics">${d.thesisKeywords.map((t) => `<span>🔎 ${esc(t)}</span>`).join("")}</div>
         <h3>相關動態</h3>
-        ${rel.length ? rel.join("") : `<p class="empty">目前沒有相關資料。</p>`}
+        ${relHtml || `<p class="empty">目前沒有相關資料。</p>`}
       </div>`;
     $("#drawer").classList.add("open"); $("#drawerBg").classList.add("open");
     $("#drawer").setAttribute("aria-hidden", "false");
@@ -597,7 +610,7 @@
   ];
   function renderPlatforms() {
     $("#platformGrid").innerHTML = platforms.map((p) => `
-      <div class="platform"><h3><span class="pf-name">${logo(p.name, "", false, "lg")}${esc(p.name)}</span><span class="fit">${esc(p.fit)}</span></h3>
+      <div class="platform"><div class="pf-head">${logo(p.name, "", false, "lg")}<div><h3>${esc(p.name)}</h3><span class="fit">${esc(p.fit)}</span></div></div>
       <p>${esc(p.desc)}</p><p class="ft">${esc(p.ft)}</p></div>`).join("");
   }
 

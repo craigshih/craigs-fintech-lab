@@ -114,7 +114,8 @@ body:not(.public) .public-only { display: none !important; }
 .section-dark .section-head h2::after { background: var(--red); }
 .sub { color: var(--ink-soft); margin: 0; }
 .section-dark .sub { color: #bdb6ab; }
-.updated { margin-left: 8px; font-size: 13px; color: var(--muted); }
+.updated { display: inline-block; margin-left: 8px; font-size: 12px; color: var(--muted); white-space: nowrap; background: rgba(0,0,0,.05); padding: 1px 9px; border-radius: 99px; vertical-align: 1px; }
+.section-dark .updated { background: rgba(255,255,255,.07); }
 
 /* reveal on scroll */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
@@ -329,8 +330,6 @@ body:not(.public) .public-only { display: none !important; }
 .course { display: flex; justify-content: space-between; gap: 12px; align-items: center; background: #fff; border: 1px solid var(--card-line); padding: 12px 14px; border-radius: 10px; margin-bottom: 8px; text-decoration: none; transition: border-color .2s, transform .2s; }
 .course:hover { border-color: var(--red); transform: translateX(4px); }
 .course small { color: var(--red); font-weight: 700; white-space: nowrap; }
-.related { font-size: 14px; padding: 8px 0; border-bottom: 1px solid #eee6d8; }
-.related b { color: var(--red); margin-right: 6px; }
 
 .toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 30px); background: var(--black); color: #fff; border-left: 4px solid var(--yellow); padding: 12px 18px; border-radius: 10px; opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s var(--ease); z-index: 120; font-size: 14px; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
@@ -431,3 +430,36 @@ a.mini-btn { text-decoration: none; }
 .courses-done li { display: flex; align-items: center; gap: 10px; text-decoration: line-through; }
 .courses-done li .link-btn { text-decoration: none; color: var(--yellow); }
 @media (max-width: 720px) { .course-grid { grid-template-columns: 1fr; } }
+
+/* ---- 排版細修：避免標籤、徽章被拆行，段落換行更自然 ---- */
+h1, h2, h3, .section-head h2 { text-wrap: balance; }
+p, .sub, .lead, .domain-tag, .event-note, .lib li, .job p, .course-card p { text-wrap: pretty; }
+.chip, .badge, .fit, .level-name, .job-meta span, .nb-meta span, .cc-domain, .mini-date, .stat span,
+.lib-meta b, .verify, .queued, .stars, .platform .fit, .nav-links a, .btn, .mini-btn, .link-btn, .rel-head span, .rel-head a { white-space: nowrap; }
+.platform h3 { gap: 10px; }
+.platform .fit { flex-shrink: 0; }
+.pf-name { min-width: 0; }
+.verify { white-space: normal; }
+
+/* ---- 領域抽屜：相關動態 ---- */
+.rel-group { background: #fff; border: 1px solid var(--card-line); border-radius: 12px; margin-bottom: 14px; overflow: hidden; }
+.rel-head { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #f6f2ea; border-bottom: 1px solid var(--card-line); font-weight: 700; font-size: 14px; }
+.rel-head .ic { color: var(--red); }
+.rel-head em { font-style: normal; font-size: 12px; background: var(--black); color: var(--yellow); border-radius: 99px; padding: 0 8px; line-height: 18px; }
+.rel-head a { margin-left: auto; font-size: 13px; color: var(--red); text-decoration: none; font-weight: 700; }
+.rel-head a:hover { text-decoration: underline; }
+.rel-list { list-style: none; margin: 0; padding: 0; }
+.rel-list li { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-top: 1px solid #f1ece2; }
+.rel-list li:first-child { border-top: 0; }
+.rel-body { min-width: 0; flex: 1; }
+.rel-body p { margin: 0; font-size: 14px; font-weight: 500; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.rel-body small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rel-date { flex-shrink: 0; width: 46px; text-align: center; background: var(--black); color: #fff; border-radius: 9px; padding: 4px 0; line-height: 1.15; }
+.rel-date b { display: block; font-family: "Space Grotesk", sans-serif; color: var(--yellow); font-size: 15px; }
+.rel-date small { font-size: 11px; color: #cfc9bf; }
+.rel-list .brand { width: 32px; height: 32px; border-radius: 9px; }
+.section-head { max-width: 900px; }
+.section-head .updated { display: table; margin: 10px 0 0; }
+.pf-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.pf-head h3 { margin: 0 0 3px; font-size: 17px; line-height: 1.25; display: block; }
+.pf-head .fit { display: inline-block; }

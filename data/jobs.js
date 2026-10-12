@@ -1,8 +1,10 @@
 // 金融科技職缺（排程任務每週一、四更新）
 // 來源：網路搜尋 104 / Cake / Yourator / Indeed / 銀行官網；投遞前請以原始頁面為準
 window.FT = window.FT || {};
-window.FT.jobsUpdated = "2026-10-11";
+window.FT.jobsUpdated = "2026-10-12";
 window.FT.jobs = [
+  { company: "星展銀行 DBS", title: "2027 星展儲備幹部計畫（MAP）", type: "實習 / MA", location: "台北", domain: "",
+    note: "招募逾 20 名，領域涵蓋消費金融、企業金融、營運管理；為期 12 個月，Direct-to-Role 直接到位；國內外大學 / 研究所應屆畢業生或工作經驗兩年以下，不限科系。線上報名至 2026/11/8。（1111 新聞報導，報名網址請以星展官網為準）", link: "https://www.1111.com.tw/news/jobns/167435", status: "截止日 11/08" },
   { company: "滙豐（台灣）HSBC", title: "2027 暑期實習生培育計畫（國際財富管理暨卓越理財事業處）／2027 年輕銀行家培育計畫", type: "實習 / MA", location: "台北", domain: "wealth",
     note: "暑期實習 8 週，對象為預計 2028 年畢業的大學 / 研究所在校生；年輕銀行家（MA）18–24 個月輪調、約 12–15 人，不限科系。線上申請、履歷隨到隨審，截止 2026/10/31。表現優異可取得 2028 MA 資格。（經濟日報報導，請以官網為準）", link: "https://money.udn.com/money/story/5613/9757768", status: "截止日 10/31" },
   { company: "第一銀行", title: "2027 菁英實習生（含數位金融類別）", type: "實習", location: "台北（總行）", domain: "payments",

@@ -1,8 +1,44 @@
 // 論文雷達：時事 × 一魚兩吃（課堂素材 + 論文切角）
 // 排程任務每週一、三、五更新，新的放最前面
 window.FT = window.FT || {};
-window.FT.thesisUpdated = "2026-10-11";
+window.FT.thesisUpdated = "2026-10-12";
 window.FT.thesis = [
+  {
+    date: "2026-10-11", domain: "payments",
+    headline: "評論：穩定幣 vs. 代幣化存款，建立共通標準才是數位貨幣的勝負手",
+    link: "https://ec.ltn.com.tw/article/breakingnews/5602277",
+    classUse: "課堂：用「發行者負債性質、準備資產、贖回責任」三軸比較穩定幣、存款代幣與 CBDC，搭配金管會 9/22 開放存款代幣試辦（目前僅台新表態、先做行內）做台灣現況簡報。",
+    thesisAngle: "論文：在台灣制度下，銀行選擇發行存款代幣或參與穩定幣合資的決定因素為何？銀行規模、數位化程度、跨境業務比重是否顯著影響參與意願？",
+    method: "個案比較 ＋ 半結構式訪談（銀行數位金融部門）；輔以銀行年報 / 法說會逐字稿文字探勘（關鍵字：存款代幣、穩定幣、RWA）建立參與意願指標，做 logit 迴歸。屬評論文章，觀點非官方立場。",
+    fit: 5
+  },
+  {
+    date: "2026-10-08", domain: "digital-assets",
+    headline: "日本財務省召開代幣化國債研究會首次會議，提出三種 JGB 上鏈模式",
+    link: "https://crypto-economy.com/japan-explores-putting-government-bonds-on-chain-to-attract-new-investors/",
+    classUse: "課堂：主權債代幣化的三條路（既有債券數位包裝 vs. 原生數位發行等），討論對清算、保管機構的衝擊，可對照台灣央債與集保結算所的角色。",
+    thesisAngle: "論文：代幣化公債（如 BlackRock BUIDL、Ondo 等代幣化美債）相對傳統公債是否具有可量化的結算效率或流動性溢酬？主權債代幣化公告是否影響相關基礎設施業者股價？",
+    method: "事件研究法（日本 MoF 公告前後，日本交易所集團、銀行、保管機構股價異常報酬）＋ 代幣化美債鏈上資料（RWA.xyz）的殖利率價差比較。目前僅有二手報導，三種模式細節待查證，請以財務省官網會議資料為準。",
+    fit: 4
+  },
+  {
+    date: "2026-10-05", domain: "digital-assets",
+    headline: "印尼 OJK：盧比穩定幣、資產代幣化等規範目標 2027 年初完成，並與印尼央行協調",
+    link: "https://en.tempo.co/read/2121273/indonesia-targets-stablecoin-regulations-by-early-2027-ojk-says",
+    classUse: "課堂：亞洲穩定幣監理比較——印尼（OJK 管、央行推數位盧比、穩定幣暫不可作支付工具）vs. 台灣（虛擬資產服務法、發行須會商央行）vs. 香港。",
+    thesisAngle: "論文：亞洲各國穩定幣監理框架在「發行主體限制、準備資產要求、支付用途」上的差異，是否與該國貨幣主權顧慮（資本管制程度、美元化程度）系統性相關？",
+    method: "比較法制研究 ＋ 監理強度指標編碼（參考 regulatory index 文獻），跨國橫斷面比較（台、港、星、日、韓、印尼）；資料來源：各國監理機關文件、IMF AREAER 資本管制資料。",
+    fit: 4
+  },
+  {
+    date: "2026-09-30", domain: "sustainable",
+    headline: "英國 FCA 發布 PS26/19：上市公司依 UK SRS（ISSB 基礎）採「遵循或解釋」揭露，放棄原擬強制氣候揭露",
+    link: "https://www.fca.org.uk/publications/policy-statements/ps26-19-aligning-listed-issuers-sustainability-disclosures-international-standards",
+    classUse: "課堂：強制 vs. comply-or-explain 的監理哲學辯論；對照台灣金管會依 IFRS S1/S2 分階段強制上市櫃公司永續揭露的路線。",
+    thesisAngle: "論文：永續揭露採「強制」或「遵循或解釋」制度，對企業揭露品質與資金成本的影響是否不同？台灣強制接軌 IFRS S1/S2 後，揭露品質提升是否反映在權益資金成本下降？",
+    method: "DiD：以台灣分階段適用（依資本額）為準自然實驗，比較首批 vs. 後批適用公司的揭露品質（文字探勘評分）與資金成本（implied cost of capital）；資料：TEJ、公開資訊觀測站永續報告書。新聞日期略早於 3 天窗口，因永續領域本週缺新聞而納入。",
+    fit: 4
+  },
   {
     date: "2026-10-08", domain: "digital-assets",
     headline: "ESMA 要求各國監理機關於 2027/1/8 前處理未取得 MiCA 授權的穩定幣（USDT、PYUSD 等）曝險",

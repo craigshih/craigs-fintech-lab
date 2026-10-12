@@ -1,4 +1,4 @@
-// 金融科技職缺（排程任務每週一、四更新）
+// 金融科技職缺（排程任務每週一更新）
 // 來源：網路搜尋 104 / Cake / Yourator / Indeed / 銀行官網；投遞前請以原始頁面為準
 window.FT = window.FT || {};
 window.FT.jobsUpdated = "2026-10-12";

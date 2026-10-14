@@ -1,8 +1,92 @@
 // 知識庫：新聞、論文、期刊、白皮書、企業報告、監理文件 —— 只整理知識點
 // 排程「知識庫」每週二、六更新；verify: true 代表數字來自二手報導，引用前請查原文
 window.FT = window.FT || {};
-window.FT.libraryUpdated = "2026-10-11";
+window.FT.libraryUpdated = "2026-10-14";
 window.FT.library = [
+  {
+    type: "監理報告", domain: "digital-assets", date: "2026-10-12", source: "Financial Stability Board（FSB）",
+    title: "Global Stablecoin Arrangements: Cross-border vulnerabilities and financial stability monitoring",
+    link: "https://www.fsb.org/2026/10/global-stablecoin-arrangements-cross-border-vulnerabilities-and-financial-stability-monitoring/",
+    points: [
+      "FSB 在 10/15 G20 財長暨央行總裁會議前提交的監測報告，定位為進行中的工作摘要，不具拘束力",
+      "核心判斷：全球穩定幣橫跨國境與產業，單一監理機關難以獨力評估或處理其風險",
+      "點出的脆弱點包括：發行人不知道持有人在哪、跨國破產法適用不明、多發行人架構下贖回壓力可能集中在單一實體、代幣 24/7 交易但準備金管理只在傳統營業時間運作",
+      "風險外溢管道：被迫拋售準備資產、銀行存款流失、支付中斷與外匯市場效應；新興市場在較低採用率下就可能出現系統性影響（貨幣替代、資本管制失效）",
+      "市場規模約 3,000 億美元、99% 為美元計價（二手報導數字）；研究啟示：可把「持有人地理分布」與「贖回集中度」設計成論文的監測指標"
+    ],
+    verify: true
+  },
+  {
+    type: "白皮書", domain: "digital-assets", date: "2026-10-08", source: "IMF Global Financial Stability Report 第 3 章 / IMF Blog",
+    title: "What Is Needed for Tokenization to Deliver",
+    link: "https://www.imf.org/en/blogs/articles/2026/10/08/blog-what-is-needed-for-tokenization-to-deliver",
+    points: [
+      "代幣化可把發行、交易、清算交割與資產服務整合在同一帳本，縮短目前依序處理的流程",
+      "代幣化附買回 (repo) 每日交易量約 3,000–3,500 億美元，其他代幣化資產（信用、貨幣市場基金、股票）約 650 億美元，相較美國 repo 日均約 13 兆美元仍很小",
+      "超過一半交易發生在傳統交易時段之外；約 80% 代幣化股票交易小於一股，顯示碎股與全天候需求",
+      "四大成長瓶頸：法律確定性、監理明確性、互通性、以安全且普遍接受的貨幣結算",
+      "規模擴大後，現行流程中的「摩擦」所提供的緩衝會消失，可能放大拋售、擠兌與傳染；IMF 主張技術中立、同業務同監理"
+    ]
+  },
+  {
+    type: "論文", domain: "digital-assets", date: "2026-09", source: "Acharya, Koudijs & Tuckman（NYU Stern；The Financial Review 即將刊登）",
+    title: "Stablecoins and the Upcoming Battle for Depositors: Motivating Facts and Open Questions",
+    link: "https://w4.stern.nyu.edu/sternfin/vacharya/public_html/pdfs/publications/Stablecoins_and_the_Battle_for_Depositors_draft_Sep12_FINAL.pdf",
+    points: [
+      "問題意識：GENIUS Act 之後，支付型穩定幣能否成為日常支付工具？其準備金是否來自銀行存款的移轉？",
+      "受威脅存款規模的估計落差極大：美國財政部借款諮詢委員會認為約 6.6 兆美元交易性存款有風險，但既有實證幾乎找不到存款流失效果",
+      "穩定幣在兩個邊際競爭：金錢邊際（法律禁止發行人付息，但分銷商可用準備收益發放獎勵）與服務邊際（Fed 清算帳戶、信託銀行執照決定支付品質）",
+      "借鏡 1970 年代貨幣市場基金搶存款的歷史：銀行會用政治遊說、新產品與重新定價防守最有價值的存款",
+      "研究啟示：論文提出的三個政策問題（付息/獎勵、央行清算帳戶、執照）可直接對照台灣虛擬資產服務法子法的設計"
+    ]
+  },
+  {
+    type: "監理文件", domain: "payments", date: "2026-10-02", source: "European Central Bank（Governing Council）",
+    title: "Decisions taken by the Governing Council of the ECB (in addition to decisions setting interest rates) – October 2026",
+    link: "https://ecb.europa.eu//press/govcdec/otherdec/2026/html/ecb.gc261002~54c6b5672b.en.html",
+    points: [
+      "Pontes 已於 2026-09-21 上線：用央行貨幣結算批發型代幣化資產交易，是歐元體系 DLT 結算的第一步",
+      "Visa Europe Payment System 被認定為「系統重要性支付系統」(ECB/2026/22)，由 ECB 擔任主要監督者",
+      "TIPS 與其他快速支付系統互連取得進展，並核准評估與巴西 Pix 連結的可行性",
+      "數位歐元試點持續招募：電商/行動商務商家申請至 10/27，創新業者申請至 11/9，2027 年試點將做可用性與無障礙測試",
+      "研究啟示：歐洲路線是「央行貨幣結算 + 快速支付互連」，可和美國以私人穩定幣為主的路線對照"
+    ]
+  },
+  {
+    type: "白皮書", domain: "sustainable", date: "2026-06", source: "OECD",
+    title: "OECD Review on Aligning Finance with Climate Goals 2026",
+    link: "https://www.oecd.org/en/publications/oecd-review-on-aligning-finance-with-climate-goals-2026_79415c38-en.html",
+    points: [
+      "第二版報告，從三個面向追蹤金融與氣候目標的一致性：金融部門政策、資金流向的氣候一致性、氣候衡量指標",
+      "2023–2025 年間，各國氣候相關金融部門政策數量成長超過 25%",
+      "銀行每年對化石燃料的融資，從 2021 年約 1.3 兆美元降到 2024 年略高於 1 兆美元",
+      "研究啟示：可作為比較台灣金管會永續金融政策與國際趨勢的基準資料"
+    ],
+    verify: true
+  },
+  {
+    type: "企業報告", domain: "wealth", date: "2026-07-08", source: "Edward Jones × Morning Consult",
+    title: "AI and the Future of Financial Advisors 2026 Research",
+    link: "https://www.edwardjones.com/us-en/why-edward-jones/news-media/press-releases/ai-future-financial-advisor-research-2026",
+    points: [
+      "2026 年 5 月調查 201 位美國理財顧問：82% 已在業務中使用 AI，69% 認為 AI 對產業有正面影響",
+      "38% 表示客戶會拿顧問建議去和網路或 AI 工具的答案比較，AI 已成為顧問的「比價對象」",
+      "68% 認為長期客戶信任仍需要人的接觸；顧問最想交給 AI 的是行政工作（59%）與例行客戶郵件（53%）",
+      "97% 表示客戶對話已擴展到財富傳承、財務焦慮與人生決策，顯示顧問價值從選股轉向行為與規劃"
+    ]
+  },
+  {
+    type: "研究報告", domain: "insurtech", date: "2026-01-13", source: "Swiss Re Institute（Reinsurance News 報導）",
+    title: "AI-driven disruption to reallocate rather than increase insurance demand: Swiss Re Institute",
+    link: "https://www.reinsurancene.ws/ai-driven-disruption-to-reallocate-rather-than-increase-insurance-demand-swiss-re-institute/",
+    points: [
+      "核心結論：長期來看，AI 帶來的是保費在險種之間「重新分配」，而不是讓整體保險需求增加",
+      "短期內資料中心等 AI 基礎建設投資（情境下 2030 年可達 7 兆美元）會推升工程、財產等保費",
+      "受分析的保險公司中不到 5% 揭露 AI 導入帶來的財務影響；效率提升也可能因競爭轉嫁給保戶，難以變成持續的承保利潤",
+      "新風險集中在網路攻擊、D&O/E&O 責任與對少數雲端與 AI 供應商的集中度風險，但損失資料仍有限"
+    ],
+    verify: true
+  },
   {
     type: "論文", domain: "digital-assets", date: "2026-09", source: "NBER Working Paper 35768（Bordo & Wilkins）",
     title: "Money and Power: Historical Lessons for Stablecoins and U.S. Dollar Dominance",

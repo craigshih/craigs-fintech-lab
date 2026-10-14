@@ -1,8 +1,35 @@
 // 論文雷達：時事 × 一魚兩吃（課堂素材 + 論文切角）
 // 排程任務每週一、三、五更新，新的放最前面
 window.FT = window.FT || {};
-window.FT.thesisUpdated = "2026-10-12";
+window.FT.thesisUpdated = "2026-10-14";
 window.FT.thesis = [
+  {
+    date: "2026-10-13", domain: "wealth",
+    headline: "金管會發布「金融業運用代理AI安全諮詢文件」，依資料敏感度、動作影響、能力邊界三軸分級，徵詢意見 30 天",
+    link: "https://udn.com/news/story/7239/9812217",
+    classUse: "課堂：比較「聊天式 AI」與「代理 AI（能呼叫工具、觸發交易系統）」的風險差異，用文件的三軸分級為理財機器人、智能客服、自動核保等情境打分，討論「數位員工」該如何問責。",
+    thesisAngle: "論文：金融機構導入代理 AI 的意願與治理成熟度是否受監理指引影響？可檢驗：諮詢文件發布後，銀行 / 券商 / 投信在年報、永續報告書中揭露的 AI 治理措施（權限控管、人工覆核、稽核軌跡）是否顯著增加，且大型機構增幅較大。",
+    method: "文字探勘（公開資訊觀測站年報、永續報告書、法說會逐字稿，建立 AI 治理揭露指標）＋ 前後比較 / DiD（以已導入生成式 AI 之機構為處理組）；可加半結構式訪談資訊長。諮詢期 30 天，定稿內容待查證。",
+    fit: 4
+  },
+  {
+    date: "2026-10-12", domain: "digital-assets",
+    headline: "FSB 於 G20 財長會議前發布全球穩定幣跨境脆弱性報告：監理框架尚未經壓力與破產情境檢驗",
+    link: "https://cryptotimes.io/2026/10/12/fsb-flags-stablecoin-and-ai-risks-ahead-of-g20-meeting",
+    classUse: "課堂：用 FSB 定義「全球穩定幣」（跨司法管轄區規模 + 系統重要性），對照 2025 年同儕檢視僅 11/28 個轄區完成穩定幣框架，討論台灣虛擬資產服務法子法（金管會預計 11 月預告）該如何處理境外穩定幣。",
+    thesisAngle: "論文：大型穩定幣的贖回壓力是否會傳導至其準備資產市場？可檢驗：USDT / USDC 大額淨贖回日，短天期美國國庫券殖利率與附買回利率是否出現顯著異常變動，且效果在監理不明確的發行者較強。",
+    method: "鏈上資料（發行 / 銷毀量，DefiLlama、Etherscan）＋ 美國 T-bill / 附買回利率日資料（FRED）；事件研究法或 VAR / 局部投影法。FSB 原文應以 fsb.org 公布之 note 為準，二手報導細節待查證。",
+    fit: 5
+  },
+  {
+    date: "2026-10-13", domain: "payments",
+    headline: "Wells Fargo 法說會：為穩定幣機會做準備、已對企業客戶推出代幣化存款；21 家國際銀行合組穩定幣公司，擬 2027 上半年發行美元穩定幣",
+    link: "https://coingape.com/wells-fargo-ceo-says-bank-is-preparing-for-potential-stablecoin-opportunities-in-the-us/",
+    classUse: "課堂：同一家銀行同時做「代幣化存款」與「參與穩定幣合資」——用這個案例解釋兩者在負債性質、可流通範圍、監理（GENIUS Act / MiCA）上的差異，並對照台灣金管會允許跨業合資發行穩定幣的規劃。",
+    thesisAngle: "論文：銀行聯合發行穩定幣是防禦性策略還是擴張性策略？可檢驗：宣布加入穩定幣聯盟的銀行，其宣布日股價異常報酬是否與其支付手續費收入占比、存款流失風險（非計息存款比重）相關。",
+    method: "事件研究法（聯盟宣布日，參與 vs. 未參與大型銀行 CAR）＋ 橫斷面迴歸（解釋變數取自 FR Y-9C / 年報）；台灣延伸可做銀行訪談比較。聯盟名單與時程依二手報導，待查證官方新聞稿。",
+    fit: 5
+  },
   {
     date: "2026-10-11", domain: "payments",
     headline: "評論：穩定幣 vs. 代幣化存款，建立共通標準才是數位貨幣的勝負手",

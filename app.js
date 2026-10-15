@@ -264,7 +264,7 @@
     $("#eventList").innerHTML = list.length ? list.map((e) => {
       const k = eventKey(e), done = !!doneEvents[k];
       const past = e.date && e.date < todayStr;
-      return `<li class="event ${e.type} ${done ? "done" : ""}">
+      return `<li class="event ${e.type} ${done ? "done" : ""} ${past ? "past" : ""}" ${!past && e.date ? `data-upcoming="1"` : ""}>
         <div class="event-top">
           <span class="badge ${e.type}">${typeName[e.type] || e.type}</span>
           <span>${e.date ? e.date.replace(/-/g, "/") : "未定日期"}${e.time ? " " + esc(e.time) : ""}${past ? "（已過）" : ""}</span>
@@ -275,7 +275,38 @@
         ${e.link ? `<a href="${esc(e.link)}" target="_blank" rel="noopener">原始連結 ↗</a>` : ""}
       </li>`;
     }).join("") : `<li class="empty">${selDate ? selDate + " 沒有符合的項目" : "沒有符合的項目"}</li>`;
+    const upcoming = list.filter((e) => !e.date || e.date >= todayStr).length;
+    $("#eventCount").innerHTML = `共 <b>${list.length}</b> 筆・即將到來 <b>${upcoming}</b> 筆`;
+    syncEventPanel();
+    if (!selDate) scrollEventsToToday(false);
   }
+  // 桌機：右側清單高度對齊左側月曆，超出的部分在面板內捲動
+  function syncEventPanel() {
+    const panel = $("#eventPanel"), list = $("#eventList");
+    if (matchMedia("(min-width: 881px)").matches) {
+      const head = panel.querySelector(".event-panel-head").offsetHeight, foot = panel.querySelector(".event-panel-foot").offsetHeight;
+      list.style.maxHeight = Math.max(360, $("#cal").offsetHeight - head - foot) + "px";
+    } else list.style.maxHeight = "";
+    panel.classList.toggle("scrollable", list.scrollHeight > list.clientHeight + 4);
+    updateEventFades();
+  }
+  function updateEventFades() {
+    const list = $("#eventList"), panel = $("#eventPanel");
+    panel.classList.toggle("at-top", list.scrollTop < 4);
+    panel.classList.toggle("at-bottom", list.scrollTop + list.clientHeight >= list.scrollHeight - 4);
+  }
+  function scrollEventsToToday(smooth) {
+    const list = $("#eventList"), first = list.querySelector("[data-upcoming]");
+    if (!first) return;
+    const top = first.offsetTop - list.offsetTop - 4;
+    if (smooth) list.scrollTo({ top, behavior: "smooth" });
+    else { list.style.scrollBehavior = "auto"; list.scrollTop = top; list.style.scrollBehavior = ""; }
+    updateEventFades();
+  }
+  $("#eventList").addEventListener("scroll", updateEventFades, { passive: true });
+  $("#eventToToday").addEventListener("click", () => { selDate = null; renderCal(); renderEvents(); scrollEventsToToday(true); });
+  window.addEventListener("resize", () => { if (isPrivate) syncEventPanel(); });
+  window.addEventListener("load", () => { if (isPrivate) { syncEventPanel(); scrollEventsToToday(false); } });
   $("#eventList").addEventListener("change", (e) => {
     const k = e.target.dataset.ek;
     if (!k) return;

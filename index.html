@@ -108,12 +108,19 @@
         <div class="section-head reveal">
           <p class="eyebrow"><svg class="ic"><use href="#i-lock"/></svg> Lab Calendar · 僅本機顯示</p>
           <h2>實驗室行事曆 & 待辦</h2>
-          <p class="sub">每天自動彙整實驗室 Discord 的活動、截止日與資訊。<span class="updated" id="eventsUpdated"></span></p>
+          <p class="sub">彙整實驗室 Discord 與台灣金融科技活動的日程、截止日與資訊。<span class="updated" id="eventsUpdated"></span></p>
         </div>
         <div class="filters" id="eventFilters"></div>
         <div class="cal-layout reveal">
           <div class="cal" id="cal"></div>
-          <ul class="event-list" id="eventList"></ul>
+          <div class="event-panel" id="eventPanel">
+            <div class="event-panel-head">
+              <span id="eventCount"></span>
+              <button class="mini-btn" id="eventToToday" type="button">↓ 跳到今天</button>
+            </div>
+            <ul class="event-list" id="eventList"></ul>
+            <div class="event-panel-foot">上下捲動查看更多</div>
+          </div>
         </div>
       </div>
     </section>

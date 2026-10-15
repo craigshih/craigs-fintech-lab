@@ -227,7 +227,7 @@
   let evFilter = "all", selDate = null;
   let calMonth = new Date(today.getFullYear(), today.getMonth(), 1);
   const typeName = { event: "活動", todo: "待辦", info: "資訊" };
-  const srcName = { discord: "Discord", gmail: "Gmail", accupass: "Accupass", manual: "手動" };
+  const srcName = { discord: "Discord", gmail: "Gmail", accupass: "Accupass", web: "活動雷達", manual: "手動" };
   function renderEventFilters() {
     $("#eventFilters").innerHTML = [["all", "全部"], ["todo", "待辦"], ["event", "活動"], ["info", "資訊"]]
       .map(([v, l]) => `<button class="chip ${evFilter === v ? "on" : ""}" data-v="${v}">${l}</button>`).join("");
@@ -344,12 +344,13 @@
   ];
   let curBook = "summary", curNote = null, srcFilter = "all";
   const courses = () => [...new Set(notionNotes.map((n) => n.course).filter(Boolean))].sort();
-  const bookName = (b) => b === "summary" ? "統整筆記" : b === "all" ? "全部筆記" : domainById[b] ? domainById[b].name : b.startsWith("c:") ? b.slice(2) : "未分類";
+  const bookName = (b) => b === "summary" ? "統整筆記" : b === "all" ? "全部筆記" : b === "cross" ? "跨領域" : domainById[b] ? domainById[b].name : b.startsWith("c:") ? b.slice(2) : "未分類";
   const notesIn = (b) => {
     const ns = allNotes();
     if (b === "all") return ns;
     if (b === "summary") return ns.filter(isSummary);
     if (b.startsWith("c:")) return ns.filter((n) => n.course === b.slice(2));
+    if (b === "cross") return ns.filter((n) => n.cross || !n.domains.length);
     return ns.filter((n) => n.domains.includes(b));
   };
   if (FT.notesSynced) $("#notesSynced").textContent = "上次同步 " + FT.notesSynced;
@@ -358,7 +359,7 @@
   function renderBooks() {
     const btn = (id, ic, name) => `<button class="nb-book ${curBook === id ? "on" : ""}" data-book="${esc(id)}">${icon(ic)}<span>${esc(name)}</span><span class="n">${notesIn(id).length}</span></button>`;
     $("#nbBooksMain").innerHTML = btn("summary", "layers", "統整筆記") + btn("all", "book", "全部筆記");
-    $("#nbBooksDomain").innerHTML = domains.map((d) => btn(d.id, d.id, d.name)).join("");
+    $("#nbBooksDomain").innerHTML = domains.map((d) => btn(d.id, d.id, d.name)).join("") + btn("cross", "link", "跨領域");
     $("#nbBooksCourse").innerHTML = courses().length ? courses().map((c) => btn("c:" + c, "paper", c)).join("")
       : `<p class="nb-hint" style="padding:0 10px">在 Notion 把「筆記類型」設為課程筆記並填「課程」，就會出現在這裡。</p>`;
   }
@@ -428,7 +429,7 @@
         ${n.pending ? `<span class="queued">⏳ 下次同步時會寫進 Notion</span>` : `<a class="btn btn-red btn-sm" href="${esc(n.url)}" target="_blank" rel="noopener">${icon("pen")} 在 Notion 編輯</a>`}
       </div>
       <div class="nb-meta">
-        ${n.domains.map((d) => chip(domainOpt[d])).join("")}${chip(n.type)}${chip(n.course && "課程｜" + n.course)}${chip(n.importance, "pin")}${chip(n.status)}${n.pinned ? `<span class="pin">★ 收進統整</span>` : ""}
+        ${n.domains.map((d) => chip(domainOpt[d])).join("")}${(n.cross || !n.domains.length) ? chip("🔗 跨領域") : ""}${chip(n.type)}${chip(n.course && "課程｜" + n.course)}${chip(n.importance, "pin")}${chip(n.status)}${n.pinned ? `<span class="pin">★ 收進統整</span>` : ""}
       </div>
       ${n.summary ? `<div class="nb-summary">${icon("spark")}<span>${esc(n.summary)}</span></div>` : ""}
       ${hasSrc ? `<div class="nb-source">
@@ -445,7 +446,7 @@
   async function createNote(book, title = "", body = "", meta = {}) {
     const item = {
       title, body,
-      domains: domainOpt[book] ? [domainOpt[book]] : ["🔗 跨領域"],
+      domains: domainOpt[book] ? [domainOpt[book]] : ["🔗 跨領域"],  // 含 book === "cross"
       type: meta.type || "📄 文獻筆記",
       sourceType: meta.sourceType || "", sourceOrg: meta.sourceOrg || "", link: meta.link || "", published: meta.published || "",
       tags: [], uses: meta.uses || ["📚 自學"]

@@ -1,8 +1,35 @@
 // 論文雷達：時事 × 一魚兩吃（課堂素材 + 論文切角）
 // 排程任務每週一、三、五更新，新的放最前面
 window.FT = window.FT || {};
-window.FT.thesisUpdated = "2026-10-14";
+window.FT.thesisUpdated = "2026-10-17";
 window.FT.thesis = [
+  {
+    date: "2026-10-16", domain: "wealth",
+    headline: "金管會立院業務報告揭 6 大重點：金融業務知識大語言模型（FinLLM）預計 2027 年第 1 季發布首版",
+    link: "https://www.cna.com.tw/news/afe/202610160252.aspx",
+    classUse: "課堂：同週金管會調查顯示金融業 AI 使用率由 2024 年 29% 升至 43%、使用者中生成式 AI 導入率達 76%；以「監理機關主導共用 FinLLM」對照「各家自建 / 採購商用模型」，討論公共財模型對中小型金融機構（信合社、中小券商）的意義與資料治理問題。",
+    thesisAngle: "論文：產業共用 FinLLM 能否縮小金融機構間的 AI 落差？可檢驗：控制規模與 IT 預算後，中小型機構的生成式 AI 導入意願對「可取得共用模型」的敏感度是否顯著高於大型機構；亦可檢驗 FinLLM 在中文金融法規問答的正確率是否優於通用模型。",
+    method: "問卷（金融機構 IT / 法遵主管，搭配金管會 AI 調查的公開統計作為母體對照）＋ Logit / 有序迴歸；或建立中文金融法規問答測試集做模型評測（benchmark）。FinLLM 規格、開放對象待查證。",
+    fit: 4
+  },
+  {
+    date: "2026-10-16", domain: "digital-assets",
+    headline: "Deutsche Bank 宣布數週內推出首項加密資產保管服務，2027 年擴展至亞洲；穩定幣兌換與代幣化存款列入後續規劃",
+    link: "https://financefeeds.com/deutsche-bank-nears-launch-of-first-crypto-custody-service-in-germany/",
+    classUse: "課堂：對照台灣 5 家本國銀行（聯邦、中信、凱基、國泰世華、台新）試辦虛擬資產保管、銀行公會年底前報請核備規範，比較德國（MiCA + 銀行執照）與台灣（虛擬資產服務法子法尚在研訂）的銀行保管路徑與風險隔離設計。",
+    thesisAngle: "論文：傳統銀行進入加密資產保管，是否降低投資人對交易所保管的依賴？可檢驗：大型銀行宣布 / 上線保管服務後，該市場中心化交易所的機構資金淨流出或鏈上冷錢包集中度是否顯著改變；或以台灣試辦銀行為處理組，檢驗其股價 / 存款結構的事件反應。",
+    method: "事件研究法（銀行宣布保管服務日之股價異常報酬，跨國樣本：Deutsche Bank、BNY、State Street、台灣試辦銀行）＋ 鏈上資料（交易所錢包餘額，CryptoQuant / Glassnode）；可加跨國個案比較（MiCA vs. 台灣虛擬資產服務法）。上線確切日期待查證。",
+    fit: 4
+  },
+  {
+    date: "2026-10-15", domain: "payments",
+    headline: "Visa Direct 以 USDC 預存資金（prefunding）進入正式商轉，銀行等業者可用穩定幣預先注資跨境付款",
+    link: "https://coingape.com/visa-advances-stablecoin-strategy-as-usdc-prefunding-hits-live-operations-on-visa-direct/",
+    classUse: "課堂：拆解跨境匯款的「預存資金」痛點（需在各國預先放法幣、週末無法調撥），說明穩定幣如何縮短資金占用；搭配 21 家國際銀行合組穩定幣公司的新聞，討論卡組織、銀行、穩定幣發行商在支付價值鏈上的競合。",
+    thesisAngle: "論文：穩定幣結算是否降低跨境匯款成本與資金占用？可檢驗：導入穩定幣預存 / 結算的匯款通道，其平均匯款成本（World Bank RPW）或到帳時間是否較未導入通道顯著下降（DiD），並探討台灣若開放新台幣穩定幣對移工匯款市場的潛在效果。",
+    method: "World Bank Remittance Prices Worldwide 通道資料 + 業者公開導入時點，DiD；或對支付業者做個案比較 / 深度訪談（Visa、Circle、台灣電子支付業者）。Visa 實際參與機構與規模待查證，宜以 Visa 官方新聞稿為準。",
+    fit: 5
+  },
   {
     date: "2026-10-13", domain: "wealth",
     headline: "金管會發布「金融業運用代理AI安全諮詢文件」，依資料敏感度、動作影響、能力邊界三軸分級，徵詢意見 30 天",

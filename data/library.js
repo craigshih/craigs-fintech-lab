@@ -1,8 +1,80 @@
 // 知識庫：新聞、論文、期刊、白皮書、企業報告、監理文件 —— 只整理知識點
 // 排程「知識庫」每週二、六更新；verify: true 代表數字來自二手報導，引用前請查原文
 window.FT = window.FT || {};
-window.FT.libraryUpdated = "2026-10-14";
+window.FT.libraryUpdated = "2026-10-17";
 window.FT.library = [
+  {
+    type: "論文", domain: "digital-assets", date: "2026-10-13", source: "BIS Working Paper No 1382（Rashad Ahmed & Iñaki Aldasoro）",
+    title: "Are stablecoins and bank deposits substitutes?",
+    link: "https://www.bis.org/publications/working-paper-1382-are-stablecoins-and-bank-deposits-substitutes",
+    points: [
+      "研究問題：穩定幣與銀行存款是否互為替代品；方法是用 2019/1–2025/6 美國週資料做 local projections，估計穩定幣市值對存款利率的半彈性",
+      "結論：兩者是「部分替代」，存款利率上升之後，穩定幣市值成長會放緩",
+      "識別策略：利用銀行對政策利率的非線性轉嫁（聯邦基金利率約超過 3% 後存款才明顯調升）處理雙向因果，並控制公債殖利率、匯率、比特幣價格與波動度",
+      "效果在 USDC 比 USDT 強，作者連結到 USDC 持有人與美國存款戶較接近；非穩定幣加密資產則看不到此效果（安慰劑檢定）",
+      "研究啟示：可直接作為「穩定幣擴張 → 銀行資金成本」管道的實證基準，也能延伸檢驗 GENIUS Act 禁止付息條款的影響"
+    ]
+  },
+  {
+    type: "監理文件", domain: "digital-assets", date: "2026-10-08", source: "European Securities and Markets Authority（ESMA）",
+    title: "ESMA sets out supervisory expectations on services related to unauthorised stablecoins",
+    link: "https://www.esma.europa.eu/press-news/esma-news/esma-sets-out-supervisory-expectations-services-related-unauthorised",
+    points: [
+      "ESMA 意見書：取得 MiCA 授權的加密資產服務商（CASP）應停止對歐盟客戶提供涉及未經 MiCA 授權之 ART / EMT（穩定幣）的服務",
+      "各國主管機關須要求業者以技術、契約與組織控管，防止客戶取得或增加對這類代幣的曝險；既有曝險最遲 2027-01-08 前處理完畢",
+      "過渡期內只允許出場型服務（變現、轉換、提領、移轉、保管），且須暫時並受監督；意見書未點名特定代幣，但市場普遍解讀 USDT、PYUSD 首當其衝",
+      "性質是監理指引而非新法律；ESMA 同時在 MiCA 檢討回應中建議修法，把此限制明文化",
+      "研究啟示：與美國 GENIUS Act、台灣《虛擬資產服務法》比較時，可把「未授權外國穩定幣的通路責任落在 CASP」當作一個監理設計維度"
+    ],
+    verify: true
+  },
+  {
+    type: "新聞報導", domain: "payments", date: "2026-10-01", source: "RTÉ News",
+    title: "European payments groups join forces in challenge to US",
+    link: "https://www.rte.ie/news/business/2026/1001/1593639-european-payments-group/",
+    points: [
+      "Bizum（西班牙）、Bancomat（義大利）與 Wero（EPI）等歐洲支付業者宣布合組合資公司「European Network for Payments」，總部設於馬德里",
+      "機制：不另建新錢包，而是把各國既有的國內支付系統互聯，讓跨境 P2P 與商店付款可以互通",
+      "動機是降低歐洲對 Visa、Mastercard 等美國卡組織的依賴，屬於「支付主權」政策脈絡",
+      "研究啟示：與數位歐元、即時支付互聯（TIPS、ECB-SNB 連結）並列，可觀察公部門 CBDC 與私部門網路整合兩條路徑如何分工"
+    ],
+    verify: true
+  },
+  {
+    type: "企業報告", domain: "wealth", date: "2026-10-14", source: "Morgan Stanley Research / Oliver Wyman",
+    title: "AI and Tokenization Could Decide Who Wins in Asset and Wealth Management",
+    link: "https://morganstanley.com/insights/articles/asset-wealth-mangement-growth-outlook-2030",
+    points: [
+      "全球資產管理規模 2025 年創下約 159 兆美元新高，預估至 2030 年每年成長約 9%；家戶金融財富年增約 7%",
+      "代幣化實體資產（RWA）目前約 400 億美元，報告預估 2030 年可達 2.3 兆美元",
+      "勝負關鍵：能把 AI 帶來的生產力轉成營收成長與更高利潤率的業者，會與同業拉開差距",
+      "研究啟示：代幣化基金與穩定幣結算是連動議題；若 RWA 真的成長數十倍，鏈上「現金腿」的監理（穩定幣或代幣化存款）就會成為瓶頸"
+    ]
+  },
+  {
+    type: "研究報告", domain: "sustainable", date: "2026-09-10", source: "Environmental Finance",
+    title: "Environmental Finance publishes its 2026 Sustainable Loans Insight",
+    link: "https://www.environmental-finance.com/content/news/environmental-finance-publishes-its-2026-sustainable-loans-insight.html",
+    points: [
+      "第四版永續貸款報告，主軸是轉型金融（transition finance）：資金如何流向高排放產業的減碳，而非只投「純綠」項目",
+      "公開標示的永續貸款 2025 年超過 8,000 億美元，低於 2024 年約 9,600 億美元的紀錄，2026 年開局也偏慢",
+      "《轉型貸款原則》（Transition Loan Principles）預計 2026 年 11 月定稿，將成為轉型貸款標籤的共同標準",
+      "研究啟示：可對照台灣「綠色及轉型金融行動方案」，追蹤國際轉型標籤定案後本地銀行授信分類是否跟進"
+    ]
+  },
+  {
+    type: "企業報告", domain: "insurtech", date: "2026-04", source: "Deloitte 瑞士",
+    title: "Deloitte Insurance and AI 2026",
+    link: "https://www.deloitte.com/ch/en/Industries/insurance/perspectives/insurance-and-ai.html",
+    points: [
+      "調查 1,291 位瑞士保戶（2026 年 2–3 月），結論是對保險業 AI 的「有條件接受」",
+      "只有約 18% 對保險 AI 持正面看法，但約 85% 認為保險公司早已在用 AI，形成明顯的信任落差",
+      "AI 從「輔助」走向「決定」時接受度大幅下滑：約 61% 反對由 AI 決定核保准駁，約 41% 反對 AI 主導風險分級與定價",
+      "接受條件：AI 負責解釋而非拍板、由人負最終責任、決策過程透明",
+      "研究啟示：保險科技的瓶頸不只在技術，還在可解釋性與問責設計，可連結金管會金融業運用 AI 指引討論"
+    ],
+    verify: true
+  },
   {
     type: "監理報告", domain: "digital-assets", date: "2026-10-12", source: "Financial Stability Board（FSB）",
     title: "Global Stablecoin Arrangements: Cross-border vulnerabilities and financial stability monitoring",

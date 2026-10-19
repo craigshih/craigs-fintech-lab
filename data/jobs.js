@@ -1,7 +1,7 @@
 // 金融科技職缺（排程任務每週一更新）
 // 來源：網路搜尋 104 / Cake / Yourator / Indeed / 銀行官網；投遞前請以原始頁面為準
 window.FT = window.FT || {};
-window.FT.jobsUpdated = "2026-10-12";
+window.FT.jobsUpdated = "2026-10-19";
 window.FT.jobs = [
   { company: "星展銀行 DBS", title: "2027 星展儲備幹部計畫（MAP）", type: "實習 / MA", location: "台北", domain: "",
     note: "招募逾 20 名，領域涵蓋消費金融、企業金融、營運管理；為期 12 個月，Direct-to-Role 直接到位；國內外大學 / 研究所應屆畢業生或工作經驗兩年以下，不限科系。線上報名至 2026/11/8。（1111 新聞報導，報名網址請以星展官網為準）", link: "https://www.1111.com.tw/news/jobns/167435", status: "截止日 11/08" },
@@ -13,7 +13,11 @@ window.FT.jobs = [
     note: "實習期 2026/6/29–2027/1/31 或 2026/9/1–2027/1/31；yes123 另列學期實習 4–6 個月、月薪 35,000。", link: "https://www.yes123.com.tw/wk_index/joblist.asp?find_key1=%E9%87%91%E8%9E%8D%E7%A7%91%E6%8A%80", status: "招募中（請確認）" },
   { company: "富邦金控", title: "科技策略研究實習生 / 資訊安全實習生", type: "實習", location: "台北內湖、中山", domain: "wealth",
     note: "下一期預計 2026 年 12 月啟動，先追蹤官網。", link: "https://www.fubon.com/financialholdings/hr/internship.html", status: "12 月開放" },
-  { company: "花旗銀行", title: "2027 暑期實習 & 儲備主管計畫", type: "實習 / MA", location: "台北", domain: "payments",
+  { company: "花旗銀行 Citi", title: "Corporate Banking Summer Analyst, Taiwan – APAC, 2027", type: "實習", location: "台北", domain: "",
+    note: "10 週暑期實習（2027 夏），學士或碩士倒數第二年、預計 2027/12–2028/6 畢業，不限科系；滾動審查，每人最多申請 3 個亞洲區暑期計畫；表現優良可銜接全職分析師。截止 2026/11/27 23:59（台灣時間）。", link: "https://jobs.citi.com/job/taipei/banking-corporate-banking-summer-analyst-taiwan-apac-2027/287/99340948784", status: "截止日 11/27" },
+  { company: "花旗銀行 Citi", title: "Commercial Banking Summer Analyst, Taiwan – APAC, 2027", type: "實習", location: "台北", domain: "",
+    note: "10 週暑期實習，不需工作經驗、不限科系；需數理分析能力；同樣限學士 / 碩士倒數第二年（2027/12–2028/6 畢業）。滾動審查，截止 2026/11/27 23:59（台灣時間）。", link: "https://jobs.citi.com/job/taipei/banking-commercial-banking-summer-analyst-taiwan-apac-2027/287/99340948704", status: "截止日 11/27" },
+  { company: "花旗銀行", title: "2027 暑期實習 & 儲備主管計畫（其他組別）", type: "實習 / MA", location: "台北", domain: "payments",
     note: "台大職涯中心公告。碩二暑假前的重要目標。", link: "https://career.ntu.edu.tw/board/index/tab/2", status: "請看公告" },
   { company: "玉山銀行", title: "2027 玉山實習計畫", type: "實習", location: "台北", domain: "payments",
     note: "台大職涯中心公告。", link: "https://career.ntu.edu.tw/board/index/tab/2", status: "請看公告" },

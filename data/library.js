@@ -1,8 +1,92 @@
 // 知識庫：新聞、論文、期刊、白皮書、企業報告、監理文件 —— 只整理知識點
 // 排程「知識庫」每週二、六更新；verify: true 代表數字來自二手報導，引用前請查原文
 window.FT = window.FT || {};
-window.FT.libraryUpdated = "2026-10-17";
+window.FT.libraryUpdated = "2026-10-20";
 window.FT.library = [
+  {
+    type: "論文", domain: "digital-assets", date: "2026-10-02", source: "IMF Working Paper WP/26/211（Marco Reuter）",
+    title: "International Stablecoin Flows, Capital Controls and Currency Crises",
+    link: "https://www.imf.org/en/publications/wp/issues/2026/10/02/international-stablecoin-flows-capital-controls-and-currency-crises-579853",
+    points: [
+      "研究問題：跨境穩定幣流量如何回應資本管制與貨幣危機；樣本涵蓋 188 國、2018–2025 年，總計約 21.4 兆美元的毛流量",
+      "核心發現：貨幣危機發生後一年內，該國的穩定幣持有量約增加 75%，顯示民眾把穩定幣當作避險與資本外逃工具",
+      "機制解讀：美元化不再只透過外幣存款或現鈔，而是多了一條「數位美元化」管道，可能削弱資本管制的有效性",
+      "研究啟示：可作為穩定幣對新興市場貨幣主權衝擊的實證依據，與台灣央行「美元穩定幣比照外匯管理」的政策邏輯直接對話"
+    ],
+    verify: true
+  },
+  {
+    type: "白皮書", domain: "digital-assets", date: "2026-10-09", source: "IMF Departmental Paper 2026/021",
+    title: "Foreign Currency Stablecoins: Initial Considerations on Policies to Manage and Enhance Macro-Financial Stability",
+    link: "https://www.imf.org/en/publications/departmental-papers-policy-papers/issues/2026/10/09/foreign-currency-stablecoins-initial-considerations-on-policies-to-manage-and-enhance-579417",
+    points: [
+      "主題：由外國發行、以外幣計價的穩定幣（如美元穩定幣）流入他國時，對接收國總體金融穩定的影響與政策選項",
+      "主要風險管道：貨幣替代（數位美元化）、資本流動管理被繞過、國內銀行存款流失，以及貨幣政策傳導變弱",
+      "政策方向是「管理並強化」而非一律禁止：結合發行人監理、服務商通路管理與外匯/資本流動工具，並強調跨境監理合作",
+      "研究啟示：可與 ESMA 對未授權穩定幣的通路限制、台灣《虛擬資產服務法》下的外匯管理機制，放在同一個比較框架"
+    ],
+    verify: true
+  },
+  {
+    type: "監理文件", domain: "digital-assets", date: "2026-07-09", source: "中央銀行（立法院財委會專案報告，TechNews 報導）",
+    title: "楊金龍：美元穩定幣擬比照外匯管理，新台幣監管較易",
+    link: "https://finance.technews.tw/2026/07/09/governor-yang-chin-long-us-dollar-stablecoins-proposed-foreign-exchange-management-nt-dollar-regulation-easier",
+    points: [
+      "央行立場：穩定幣應由銀行發行；新台幣穩定幣因發行人在國內、規則明確，監理相對容易",
+      "美元穩定幣較複雜：初步規劃比照「指定銀行」外匯管理模式，重點放在買賣兌換的資金進出，而非交易速度",
+      "依《虛擬資產服務法》建立穩定幣外匯管理機制：把穩定幣交易納入既有外匯架構，並建置移轉資料申報系統",
+      "央行認為 USDT、USDC 在各自體系內運作、沒有跨系統清算需求，目前不需批發型 CBDC 作最終清算；同時推動準備金代幣化，可能先支援銀行間黃金代幣移轉",
+      "時程：金管會將完成 9 項子法，與母法同步施行，最快 2027 年第 1 季開放業者申請"
+    ]
+  },
+  {
+    type: "新聞報導", domain: "payments", date: "2026-10-16", source: "Payment Expert（報導 FSB 最終報告）",
+    title: "The 12 standards agentic AI needs according to FSB",
+    link: "https://paymentexpert.com/2026/10/16/the-12-standards-agentic-ai-needs-according-to-fsb/",
+    points: [
+      "FSB 於 2026-10-15 發布代理式 AI（agentic AI）最終報告，為「負責任採用 AI 的健全實務」專案的最後一步，列出 12 項治理與安全實務",
+      "支付面重點：代理式商務與支付屬高風險應用，須加強人工監督，並設定以風險為基礎的觸發條件，在代理人執行前要求人工核准",
+      "相較諮詢稿，最終版刪除把 AI 視為「合成員工」的說法，並新增對 AI 代理人的稽核指引；也提醒代理人可能以非預期方式解讀目標",
+      "研究啟示：AI 代理人若直接動用客戶資金（含穩定幣錢包），授權、責任歸屬與稽核軌跡會成為支付監理的新議題"
+    ],
+    verify: true
+  },
+  {
+    type: "白皮書", domain: "wealth", date: "2026-10-13", source: "IMF Global Financial Stability Report（2026 年 10 月）",
+    title: "Global Financial Stability Report, October 2026: Resilience, Risk, and Transformation",
+    link: "https://www.imf.org/en/publications/gfsr/issues/2026/10/13/global-financial-stability-report-october-2026",
+    points: [
+      "總覽：市場仍有韌性，但主要風險是 AI 相關資產價格修正、主權債殖利率急升與網路攻擊；私募信貸槓桿上升、保險與退休基金流動性錯配是脆弱點",
+      "第二章：避險基金資產約 13 兆美元，是 2013 年的三倍以上；壓力時槓桿、擁擠部位與連動贖回可能造成同步拋售並外溢到主經紀商",
+      "第三章（代幣化）：可簡化資產生命週期、降低摩擦並自動化中介功能；發展受限於法律確定性、監理明確性、互通性與結算資產四項條件",
+      "代幣化股票市場有 24/7 交易與碎股，但規模小、流動性低、波動與分散度高；二手報導引述代幣化 RWA（不含附買回與穩定幣）約 651 億美元、代幣化附買回日均約 3,030 億美元",
+      "政策建議：採技術中立監理，移除不必要障礙，同時防範即時結算與可程式化擔保品加速強制平倉的新傳染管道"
+    ],
+    verify: true
+  },
+  {
+    type: "白皮書", domain: "sustainable", date: "2026-10-13", source: "Network for Greening the Financial System（NGFS）",
+    title: "Nature-related risks: a Compendium of Implementation Practices to guide Action by Central Banks and Supervisors",
+    link: "https://www.ngfs.net/en/press-release/ngfs-publishes-nature-related-risks-compendium-implementation-practices-guide-action-central-banks",
+    points: [
+      "目的：彙整 NGFS 成員實際評估與管理「自然相關金融風險」的做法，協助央行與監理機關從概念討論走向可操作的分析工具",
+      "證據基礎：調查超過 30 項跨國倡議，並有 6 個深入個案研究",
+      "發現：水資源相關生態系服務中斷，是各倡議最常辨識出的自然風險來源；風險集中在農業、林業、製造業與不動產，但可能波及整體金融體系",
+      "研究啟示：與 ISSB 以實務公告處理自然揭露的方向互補，金融機構的自然風險壓力測試與揭露將逐步制度化"
+    ]
+  },
+  {
+    type: "研究報告", domain: "insurtech", date: "2026-07-09", source: "Swiss Re Institute sigma（Insurance Business 報導）",
+    title: "AI boom and supply shocks reshape insurance outlook: Swiss Re sigma",
+    link: "https://www.insurancebusinessmag.com/reinsurance/news/breaking-news/ai-boom-and-supply-shocks-reshape-insurance-outlook-swiss-re-sigma-581833.aspx",
+    points: [
+      "全球保費實質成長預估自 2025 年 3.9% 放緩至 2026 年 1.3%；產險僅 0.6%，遠低於 3.6% 的長期趨勢，壽險 2.3% 則高於趨勢",
+      "產險 ROE 預估由 2025 年 14% 降至 2026 年 11.4%，2028 年再降至 7.7%，承保週期進入下行",
+      "AI 是新變數：超大型雲端業者 2026 年 AI 資本支出約 7,500 億美元，最大型資料中心資產價值超過 200 億美元，帶來財產、工程、資安與營業中斷保險的新需求與集中風險",
+      "新興市場相對有韌性，壽險受人口結構、監理改革與滲透率提升支撐；研究啟示是保險科技的成長點從通路創新轉向 AI 基礎設施風險承保"
+    ],
+    verify: true
+  },
   {
     type: "論文", domain: "digital-assets", date: "2026-10-13", source: "BIS Working Paper No 1382（Rashad Ahmed & Iñaki Aldasoro）",
     title: "Are stablecoins and bank deposits substitutes?",

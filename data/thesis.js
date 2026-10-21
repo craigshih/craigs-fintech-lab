@@ -1,8 +1,35 @@
 // 論文雷達：時事 × 一魚兩吃（課堂素材 + 論文切角）
 // 排程任務每週一、三、五更新，新的放最前面
 window.FT = window.FT || {};
-window.FT.thesisUpdated = "2026-10-20";
+window.FT.thesisUpdated = "2026-10-21";
 window.FT.thesis = [
+  {
+    date: "2026-10-20", domain: "digital-assets",
+    headline: "金管會發布修正 VASP 防制洗錢辦法第 7 條，境內虛擬資產 Travel Rule 上路：轉帳逾新台幣 3 萬元須附轉出人生日與住址，跨境預計 2027 年底實施",
+    link: "https://money.udn.com/money/story/5612/9826927",
+    classUse: "課堂：以 FATF R.16（Travel Rule）為主軸，對照歐盟 TFR（零門檻）、新加坡、日本與台灣「USD 1,000 ≈ 3 萬元門檻、境內先行、跨境後補」的分階段設計；可討論門檻設定是否誘發拆單（structuring），以及《虛擬資產服務法》許可制上路後的 AML 合規成本分配。",
+    thesisAngle: "論文：Travel Rule 是否改變虛擬資產轉帳行為？可檢驗：新制施行後，台灣 8 家 VASP 間「略低於 3 萬元」的轉帳筆數占比是否異常上升（門檻群聚 / bunching），以及資金是否轉向境外平台或自託管錢包（跨境新制尚未實施的監理套利）。",
+    method: "門檻群聚分析（bunching estimation）＋ 事件研究前後比較；資料：鏈上地址標記（Arkham / Chainalysis 公開報告）、交易所公開熱錢包流量（Dune）、業者訪談或問卷（合規成本、客戶流失）；可做台日歐 Travel Rule 制度個案比較。8 家業者實際交易明細取得性待查證。",
+    fit: 4
+  },
+  {
+    date: "2026-10-19", domain: "digital-assets",
+    headline: "美國財政部 GENIUS Act 穩定幣發行 / 銷售規則草案（NPRM）10/19 截止公眾意見，外國發行人進入美國市場等 87 項提問引發業界討論",
+    link: "https://www.pymnts.com/legal/2026/treasury-stablecoin-proposal-draws-questions-over-foreign-access/",
+    classUse: "課堂：拆解財政部草案的「外國發行人可比性認定（comparability）＋ 離岸安全港」設計，對照前則 OCC 最終規則進度與 ESMA 對未授權穩定幣的處理；可延伸討論台灣若未來發行新台幣穩定幣或引入境外美元穩定幣，是否需取得美方「可比」認定。",
+    thesisAngle: "論文：監理意見徵詢內容反映了哪些利益團體的偏好？可檢驗：以 NPRM 公眾意見書為語料，比較銀行、加密原生業者、消費者團體在「外國發行人准入、準備資產組成、刑責範圍」議題上的立場差異，並追蹤最終規則對各方意見的採納率。",
+    method: "文字探勘（regulations.gov 意見書全文；主題模型 LDA / BERTopic、立場分類）＋ 最終規則與草案逐條比對（notice-and-comment 採納率分析）；可與 OCC、NYDFS 規則做跨機關比較。意見書總數與最終規則發布日待查證。",
+    fit: 5
+  },
+  {
+    date: "2026-10-20", domain: "payments",
+    headline: "英國開放銀行支付業者 TrueLayer 募資 2,700 萬美元，擴大歐洲 pay-by-bank（帳戶對帳戶）支付網路",
+    link: "https://beinsure.com/news/fintech-truelayer-raises-27mn/",
+    classUse: "課堂：以 TrueLayer 為例說明開放銀行從「資料共享」走向「支付發起（PIS）」的商業模式，對照歐盟 PSD3 / PSR、英國 VRP 與台灣開放銀行第三階段（交易面）進度落後的原因；可討論 A2A 支付對卡組織手續費的替代壓力與「歐洲支付自主」政策。",
+    thesisAngle: "論文：開放銀行支付（A2A）能否降低商家支付成本並侵蝕卡支付市占？可檢驗：英國 / 歐盟開放銀行支付筆數成長與信用卡交易占比、商家手續費率之間的關係；或以問卷檢驗台灣消費者對帳戶直扣支付的採用意願（TAM / UTAUT）。",
+    method: "時間序列 / 跨國面板迴歸（資料：Open Banking Limited 月度統計、ECB 支付統計、英國 Payment Systems Regulator 報告）；台灣端可用問卷（UTAUT）＋ 個案訪談（銀行、電支業者）。募資細節與投資人組成以原文為準。",
+    fit: 3
+  },
   {
     date: "2026-10-15", domain: "digital-assets",
     headline: "美國 OCC 署長 Gould 於 DC Fintech Week 表示，GENIUS Act 穩定幣最終規則預計 10 月底前發布（原目標 11 月）",

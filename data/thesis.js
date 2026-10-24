@@ -1,8 +1,26 @@
 // 論文雷達：時事 × 一魚兩吃（課堂素材 + 論文切角）
 // 排程任務每週一、三、五更新，新的放最前面
 window.FT = window.FT || {};
-window.FT.thesisUpdated = "2026-10-21";
+window.FT.thesisUpdated = "2026-10-23";
 window.FT.thesis = [
+  {
+    date: "2026-10-21", domain: "digital-assets",
+    headline: "美國 OCC 發布 GENIUS Act 穩定幣最終規則，刪除「第三方獎勵視為違反付息禁令」的推定、改個案審查，2027/1/18 生效；美國銀行家協會（ABA）批評將掏空存款",
+    link: "https://www.theblock.co/news/regulation/2026-10-21-american-bankers-association-accuses-occ-undermining-congress-stablecoin-rewards-rule-421629",
+    classUse: "課堂：對照 OCC 2 月草案與最終規則的兩大改動（取消第三方獎勵的可反駁推定、取消準備資產 20 天加權平均到期日上限），說明「發行人不得付息，但交易所 / 中介可發獎勵」的監理缺口；可延伸討論台灣虛擬資產服務法子法「禁止付息」是否也應涵蓋 VASP 端的獎勵，以及銀行業「存款外流 → 放款減少」論點的實證基礎。",
+    thesisAngle: "論文：穩定幣獎勵（rewards）是否造成銀行存款外流？可檢驗：最終規則確認中介獎勵可續存後，(1) 提供 USDC 獎勵之平台的穩定幣餘額是否相對上升；(2) 中小型銀行（ABA / ICBA 會員、存款依賴度高者）的股價異常報酬是否顯著為負，且與其核心存款占比相關。",
+    method: "事件研究法（事件日：2026/2 草案、10/21 最終規則；樣本：區域 / 社區銀行股、COIN、CRCL），以核心存款占比做截面迴歸；鏈上資料（DefiLlama、Artemis 穩定幣餘額）＋ FDIC Call Report 存款資料做 DiD。最終規則逐條內容以 OCC 官方 Federal Register 版本為準（待查證）。",
+    fit: 5
+  },
+  {
+    date: "2026-10-23", domain: "payments",
+    headline: "Axios 報導美國多家大型銀行發現未經授權的第三方 AI 代理疑似登入客戶帳戶，銀行急設防線，引發代理式支付與轉帳風險討論",
+    link: "https://www.nownews.com/news/6885821",
+    classUse: "課堂：以「AI 代理代替客戶登入、比價、轉帳」為情境，討論驗證責任（誰授權？誰負責損失？）與螢幕擷取（screen scraping）vs. 開放銀行 API 的老問題重演；可直接接上金管會 10 月「金融業運用代理 AI 安全諮詢文件」的三軸分級（資料敏感度、動作影響、能力邊界），以及 Visa / Mastercard 的 agentic commerce 代理憑證設計。",
+    thesisAngle: "論文：代理式 AI 支付的責任分配與消費者信任。可檢驗：在情境實驗中，「銀行 API 授權的 AI 代理」相較「第三方擷取式 AI 代理」，是否顯著提高消費者授權轉帳意願；以及損失責任歸屬（銀行 / 平台 / 消費者）的告知方式是否調節此效果。",
+    method: "情境實驗問卷（2×3 受試者間設計，結合 UTAUT / 知覺風險量表）＋ 監理文件比較（台灣金管會代理 AI 諮詢文件、美國 CFPB 1033 條規則、歐盟 PSD3 / AI Act）；可訪談銀行數位金融與資安主管。原始 Axios 報導細節（涉及銀行名單、是否造成損失）待查證。",
+    fit: 4
+  },
   {
     date: "2026-10-20", domain: "digital-assets",
     headline: "金管會發布修正 VASP 防制洗錢辦法第 7 條，境內虛擬資產 Travel Rule 上路：轉帳逾新台幣 3 萬元須附轉出人生日與住址，跨境預計 2027 年底實施",

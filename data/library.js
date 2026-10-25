@@ -1,8 +1,104 @@
 // 知識庫：新聞、論文、期刊、白皮書、企業報告、監理文件 —— 只整理知識點
 // 排程「知識庫」每週二、六更新；verify: true 代表數字來自二手報導，引用前請查原文
 window.FT = window.FT || {};
-window.FT.libraryUpdated = "2026-10-20";
+window.FT.libraryUpdated = "2026-10-25";
 window.FT.library = [
+  {
+    type: "監理文件", domain: "digital-assets", date: "2026-10-21", source: "美國貨幣監理署 OCC（Bulletin 2026-50）",
+    title: "GENIUS Act Regulations: Final Rule",
+    link: "https://occ.gov/news-issuances/bulletins/2026/bulletin-2026-50.html",
+    points: [
+      "定位：OCC 完成 GENIUS Act 下穩定幣發行的最終規則，主體條文放在新增的 12 CFR Part 15，2027-01-18 生效（法案 2025-07-18 簽署、2026-02 提出草案）",
+      "適用對象：國家銀行與聯邦儲蓄機構的子公司、外國發行人、申請聯邦資格的非銀行發行人，以及受 OCC 監理的州級發行人",
+      "規範範圍：允許業務與準備資產、贖回與風險管理、稽核申報、保管、資本與營運備援（operational backstop）、州級發行人轉入聯邦框架等",
+      "缺口：洗錢防制（BSA/AML）與 OFAC 制裁要求不在本規則內，將另與財政部聯合訂定——寫論文時要分開引用",
+      "研究啟示：美國把穩定幣發行人「當銀行監理」的具體條文版本，可直接對照台灣《虛擬資產服務法》子法與央行「由銀行發行」的主張"
+    ]
+  },
+  {
+    type: "論文", domain: "digital-assets", date: "2026-10-21", source: "SSRN（Odunayo Olowookere、Darrell Duffie、Andreas Veneris）",
+    title: "GENIUS Act Regulations on Payment Stablecoin Issuance, Offer, and Sale: Section 3 and Cross-Border Access",
+    link: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7643678",
+    points: [
+      "主題：分析 GENIUS Act 第 3 條（誰能在美國發行、提供與銷售支付型穩定幣）的施行規則，以及外國發行人進入美國市場的管道",
+      "核心問題：跨境穩定幣能否在美國流通，取決於外國監理制度是否被認定為「可比較」，這讓監理互認成為關鍵瓶頸",
+      "政策建議：作者主張由 G7/G20 授權 FSB 協調各標準制定機構，推動穩定幣監理的相互承認",
+      "研究啟示：若未來新台幣或在台發行的穩定幣要跨境使用，可用本文框架討論台灣需滿足哪些「可比性」條件"
+    ],
+    verify: true
+  },
+  {
+    type: "新聞報導", domain: "digital-assets", date: "2026-10-23", source: "The Block（引述韓國 Digital Asset 報導）",
+    title: "South Korea to amend forex law to regulate stablecoins as payment instruments: report",
+    link: "https://www.theblock.co/news/regulation/2026-10-23-south-korea-stablecoins-payment-instruments-424028",
+    points: [
+      "事件：韓國央行與政府計畫在 2026 年內共同修訂《外匯交易法》，把穩定幣定位為「支付手段」納入外匯管理",
+      "背景：涵蓋交易所執照與穩定幣發行規則的《數位資產基本法》仍在起草，修法是為了填補過渡期的監理空窗、減少監理套利",
+      "配套：央行同時規劃虛擬資產監測框架，並建立打擊非法加密轉帳的國際合作機制，點名混幣器與非託管錢包的匿名風險",
+      "研究啟示：與台灣央行「美元穩定幣比照外匯管理」的思路高度相似，是東亞「用外匯法管穩定幣」的比較案例"
+    ]
+  },
+  {
+    type: "監理文件", domain: "digital-assets", date: "2026-08-04", source: "金融監督管理委員會（經濟日報報導）",
+    title: "金管會宣布二階段開放虛擬資產移轉 10月先開境內移轉",
+    link: "https://money.udn.com/money/story/5613/9670319",
+    points: [
+      "機制：台灣導入虛擬資產「旅行規則」（Travel Rule），要求 VASP 在移轉時傳遞匯款人與受款人身分資訊",
+      "時程：第一階段 2026 年 10 月適用境內 VASP 之間的移轉；第二階段最晚 2027 年底擴及境內與境外 VASP 之間",
+      "門檻：所有金額都適用，但超過新台幣 3 萬元時，自然人須另提供出生日期與住址，法人須提供統一編號與登記地址",
+      "責任分配：收款端 VASP 必須比對轉出端傳來的受款人資料與自家客戶紀錄，等於把核對義務放在接收方",
+      "研究啟示：穩定幣若在台流通，旅行規則是 AML 合規的基礎設施；可與 FATF 建議 16 與美國 GENIUS 的 AML 另案規則比較"
+    ]
+  },
+  {
+    type: "企業報告", domain: "payments", date: "2026-10-19", source: "J.P. Morgan Payments",
+    title: "Payments Outlook: Europe Market sovereignty meets flexibility",
+    link: "https://www.jpmorgan.com/insights/payments/trends-innovation/payments-outlook-europe-trends-2026",
+    points: [
+      "主軸：歐洲支付發展被「支付主權」驅動，企業重心轉向靈活流動性管理與即時支付",
+      "採用數據：受訪企業中 31% 已使用數位貨幣或穩定幣、23% 用區塊鏈處理支付、17% 正在試行，另有 22% 考慮中",
+      "法規時程：PSR 將與 PSD3 於 2027 年上路，強化透明度與身分驗證，被視為推動代理式商務（agentic commerce）與可程式化支付的前提",
+      "風險面：40% 的 EMEA 企業擔心未來 12 個月的支付詐欺；歐盟數位身分錢包（EUDI Wallet）預計 2026 年底在各會員國可用",
+      "研究啟示：數位歐元的成敗被認為取決於對使用者的吸引力，可作為 CBDC 與私人穩定幣競爭的企業端證據"
+    ]
+  },
+  {
+    type: "新聞報導", domain: "insurtech", date: "2026-10-22", source: "FinTech Global",
+    title: "Slingshot Insurance raises $27m for embedded InsurTech",
+    link: "https://fintech.global/2026/10/22/slingshot-insurance-raises-27m-for-embedded-insurtech/",
+    points: [
+      "事件：AI 原生保險公司 Slingshot 結束隱身期，取得 2,700 萬美元種子輪，由 Rally Ventures 與 Skyward Group 共同領投",
+      "商業模式：替垂直軟體平台、MGA 與通路商提供嵌入式保險所需的承保能量、技術與上市速度，鎖定業餘運動、旅遊、零工經濟",
+      "關鍵邏輯：降低保單管理與資本取得成本，讓「小額、高頻、低損失」的嵌入式保單變得划算；首位客戶 Vertical Insure 平均保費約 25 美元",
+      "市場數字：公司引述業界預估，嵌入式保單目前約占全球產險保費 3%，十年內可能接近 20%（廠商引述，需查原始出處）"
+    ],
+    verify: true
+  },
+  {
+    type: "研究報告", domain: "sustainable", date: "2026-10-20", source: "China Finance 40 Forum（CF40）× 清華大學",
+    title: "2026 Bund Green Finance Report: Green and Low-Carbon Synergy and Sustainable Finance",
+    link: "https://cf40research.substack.com/p/2026-bund-green-finance-report-green",
+    points: [
+      "調適缺口：調適資金占國際公共氣候資金不到 30%，長週期、現金流弱的調適項目與短天期金融商品存在期限錯配",
+      "綠色消費：中國綠色消費市場 2025 年約 12.18 兆人民幣、占社會消費品零售總額 24.3%，預估 2030 年超過 18 兆",
+      "轉型金融設計：提議設立 SPV 收購企業淘汰落後產能所產生的減排憑證，資金來自轉型債券、貸款與產能退出基金，再於碳價上升時出售",
+      "碳市場：預估 2026–2035 年電力、鋼鐵、水泥貢獻全國 65–70% 減排；2030 年配額總量開始下降後，東部省份配額先減",
+      "研究啟示：報告建議以巨災保險與巨災債券承接氣候與自然風險，可連結永續金融與保險科技兩個領域"
+    ],
+    verify: true
+  },
+  {
+    type: "新聞報導", domain: "wealth", date: "2026-10-07", source: "中央社",
+    title: "買TISA基金最高免稅2.4萬？財部：跨部會持續溝通",
+    link: "https://cna.com.tw/news/afe/202610070050.aspx",
+    points: [
+      "TISA（台灣投資帳戶）由金管會與集保結算所推出、上路滿一年，第一階段以管理費與手續費減免讓利，第二階段研議租稅優惠",
+      "媒體報導的規劃：修訂《證券投資信託及顧問法》納入租稅優惠，每年投資本金最高 2.4 萬元免稅，與保險費列舉扣除上限相同（尚未官方定案）",
+      "規模：截至 2026-08-21，TISA 累計申購約 101.1 億元、帳戶資產規模 210.6 億元；級別基金每月最低申購 1,000 元",
+      "制度意義：把租稅優惠放在投信投顧法而非所得稅法，是以產業法提供稅賦誘因的作法，可對照英國 ISA、日本 NISA 的設計"
+    ],
+    verify: true
+  },
   {
     type: "論文", domain: "digital-assets", date: "2026-10-02", source: "IMF Working Paper WP/26/211（Marco Reuter）",
     title: "International Stablecoin Flows, Capital Controls and Currency Crises",

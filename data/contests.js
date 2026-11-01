@@ -1,5 +1,5 @@
 // 校園競賽：以學生團隊為主、學士 / 碩士可參加的金融科技相關競賽
-// 由手動排程「校園競賽雷達」更新；狀態（報名中 / 已截止）由網站依今天日期自動判斷
+// 在對話裡說「跑競賽雷達」時更新（主要來源：獎金獵人 bhuntr.com）；狀態（報名中 / 已截止）由網站依今天日期自動判斷
 // status: "tbd" 代表今年還沒公告；verify: true 代表細節來自轉載，報名前請看官方簡章
 window.FT = window.FT || {};
 window.FT.contestsUpdated = "2026-11-01";
@@ -33,13 +33,49 @@ window.FT.contests = [
     link: "https://www.encodeclub.com/programmes/concordium-trusted-agents-hackathon", verify: true
   },
   {
-    id: "cardif-insurhack", name: "Cardif InsurHack 法國巴黎人壽校園黑客松", organizer: "法國巴黎人壽", kind: "商業競賽", status: "tbd",
-    domains: ["insurtech"], levels: ["學士", "碩士"], team: "3–5 人",
-    theme: "往年題目：銷售流程科技化、產品與服務創新、AI / 數位工具優化營運",
-    regEnd: "", dates: [{ label: "往年報名截止", date: "10/31" }],
-    prize: "往年前五名 1–6 萬", fit: 2,
-    why: "#5 保險科技頻道有在討論；第四屆時程未公告，留意 #5 與官方消息。",
-    link: "https://bhuntr.com/tw/competitions/2026_cardif_insurhack", verify: true
+    id: "cardif-insurhack", name: "Cardif InsurHack 第四屆法國巴黎人壽校園黑客松", organizer: "法國巴黎人壽", kind: "AI 原型黑客松",
+    domains: ["insurtech"], levels: ["學士", "碩士（至碩二）"], team: "1–5 人，可跨校；鼓勵 1 位指導教授",
+    theme: "七大部門九個真實命題（理賠助手、法規與風險情報、預算預測等），要用 AI 做出可操作的 Prototype",
+    regEnd: "2026-11-06", dates: [{ label: "報名＋初賽繳件截止（17:00）", date: "2026-11-06" }, { label: "黑客松工作坊（台北 101）", date: "2026-12-05" }],
+    prize: "總獎金 15 萬（金獎 7 萬）", fit: 2,
+    why: "#5 保險科技頻道有在討論；初賽要 20 頁簡報＋3 分鐘原型影片，只剩 5 天。",
+    link: "https://bhuntr.com/tw/competitions/2026_cardif_insurhack"
+  },
+  {
+    id: "aifintech-comp-6", name: "2026 第六屆全國 AI 金融科技創新創意競賽", organizer: "AI 金融科技協會（協辦：台大、北大、北商大等）", kind: "創意提案 / 實作",
+    domains: ["digital-assets", "payments", "wealth"], levels: ["學士", "碩士", "博士"], team: "1–5 人，可跨校跨系",
+    theme: "開放命題：AI 應用（投資、防詐、量化）／金融創新（普惠、永續）／區塊鏈（Web3、RWA、穩定幣）／資安",
+    regEnd: "2026-11-13", dates: [{ label: "徵件截止", date: "2026-11-13" }, { label: "決賽入圍公布", date: "2026-11-23" }, { label: "決賽簡報繳件", date: "2026-12-04" }, { label: "決賽／頒獎", date: "2026-12-11" }],
+    prize: "冠軍 5 萬、亞軍 3 萬、季軍 1 萬＋前三名實習機會", fit: 4,
+    why: "就是 #3 Discord 提到的 Plan B；穩定幣、RWA 直接在命題範圍內，可以跨校組隊。",
+    link: "https://bhuntr.com/tw/competitions/dxtux28s41iw8l6zv8"
+  },
+  {
+    id: "sustainable-smart-hackathon-2026", name: "2026 永續智慧創新黑客松競賽", organizer: "CMU I-Lab（中國醫藥大學）× 台灣 11 校＋國際 4 校", kind: "企業命題黑客松",
+    domains: ["sustainable"], levels: ["學士", "碩士", "博士"], team: "請看簡章（可跨校跨域）",
+    theme: "企業命題、學生解題，以 SDGs 為主軸；先報名再交 4–10 頁提案計畫書",
+    regEnd: "2026-11-06", dates: [{ label: "報名截止", date: "2026-11-06" }, { label: "初賽資料繳件", date: "2026-11-18" }, { label: "晉級公布", date: "2026-11-26" }, { label: "決賽（中國醫大水湳）", date: "2026-12-13" }],
+    prize: "總獎金 96 萬（單隊最高 1.5 萬）", fit: 2,
+    why: "命題以醫療、淨零、循環經濟為主，金融題少；要先看有沒有永續金融相關命題再決定。",
+    link: "https://bhuntr.com/tw/competitions/fdobqcgo5n1m7cm5xw"
+  },
+  {
+    id: "regtech-audit-2026", name: "2026 法遵科技與電腦稽核專題競賽（大專院校組）", organizer: "中正大學製商整合研究中心（協辦：ICAEA、JACKSOFT、資誠 PwC）", kind: "專題報告＋海報",
+    domains: ["payments", "sustainable"], levels: ["學士", "碩士", "博士"], team: "1 位指導老師＋組長＋1–5 名組員",
+    theme: "用稽核工具或 AI（Python 也可）解內控法遵、金融詐騙、ESG、資安題目；題目自訂或用 PwC 案例",
+    regEnd: "2026-11-30", dates: [{ label: "投稿截止", date: "2026-11-30" }, { label: "決賽", date: "2026-12-11" }],
+    prize: "總獎金 5 萬（單項最高 2 萬）", fit: 3,
+    why: "RegTech 角度可以接穩定幣監理與反洗錢；截止較晚，時間比較充裕。",
+    link: "https://bhuntr.com/tw/competitions/7y586yqivco44jfyo5"
+  },
+  {
+    id: "seed-cup-stock-research-6", name: "2026 第六屆潛力種子盃個股研究競賽", organizer: "中央、暨南、中正、中興大學證券社", kind: "個股研究報告",
+    domains: ["wealth"], levels: ["學士"], team: "1–4 人，可跨校（限學士生）",
+    theme: "自選一檔市值 200 億以上台股做基本面分析與估值",
+    regEnd: "2026-12-31", dates: [{ label: "報名截止", date: "2026-12-31" }, { label: "初賽報告交件", date: "2027-01-10" }, { label: "複賽（中央大學）", date: "2027-03-20" }],
+    prize: "第一名 1.5 萬（總獎金 3.3 萬）", fit: 1,
+    why: "限學士生，碩士不能參加；可轉給 #1 投資組的大學部學弟妹。",
+    link: "https://bhuntr.com/tw/competitions/pe48how9oty8181822"
   },
   {
     id: "huanan-fintech-3", name: "第三屆華南金控金融科技創新競賽", organizer: "華南金控", kind: "創意提案 / 技術實證", status: "tbd",

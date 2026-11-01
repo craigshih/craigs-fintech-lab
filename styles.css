@@ -158,6 +158,17 @@ body:not(.public) .public-only { display: none !important; }
 .empty { color: var(--muted); padding: 20px 0; }
 
 /* CALENDAR */
+.src-checks { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: -2px 0 18px; font-size: 14px; }
+.src-label { color: var(--muted); font-size: 13px; white-space: nowrap; }
+.src-check { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; color: #bbb; white-space: nowrap; user-select: none; transition: color .2s; }
+.src-check.on { color: #fff; }
+.src-check input { position: absolute; opacity: 0; pointer-events: none; }
+.src-check .box { width: 18px; height: 18px; border: 2px solid var(--line); border-radius: 5px; display: grid; place-items: center; transition: background .2s, border-color .2s; }
+.src-check.on .box { background: var(--yellow); border-color: var(--yellow); }
+.src-check.on .box::after { content: ""; width: 5px; height: 9px; border: solid var(--black); border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
+.src-check:hover .box { border-color: var(--yellow); }
+.src-check input:focus-visible + .box { outline: 2px solid var(--yellow); outline-offset: 2px; }
+.src-check .count { font-size: 12px; opacity: .6; }
 .cal-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 28px; align-items: start; }
 .cal { background: var(--black-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
 .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-weight: 700; }

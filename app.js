@@ -244,9 +244,25 @@
     if (!e.target.dataset.v) return;
     evFilter = e.target.dataset.v; renderEventFilters(); renderEvents();
   });
+  // 來源勾選方格：取消勾選的來源不會出現在月曆與清單（記在這台瀏覽器）
+  let hiddenSrc = store.get("hiddenSrc", {});
+  const shownEvents = () => events.filter((e) => !hiddenSrc[e.source]);
+  function renderEventSources() {
+    const srcs = [...new Set(events.map((e) => e.source))].sort((a, b) => Object.keys(srcName).indexOf(a) - Object.keys(srcName).indexOf(b));
+    $("#eventSources").innerHTML = `<span class="src-label">顯示來源</span>` + srcs.map((s) => `
+      <label class="src-check ${hiddenSrc[s] ? "" : "on"}"><input type="checkbox" data-src="${esc(s)}" ${hiddenSrc[s] ? "" : "checked"}>
+        <span class="box" aria-hidden="true"></span>${srcName[s] || esc(s)}<span class="count">${events.filter((e) => e.source === s).length}</span></label>`).join("");
+  }
+  $("#eventSources").addEventListener("change", (e) => {
+    const s = e.target.dataset.src;
+    if (!s) return;
+    if (e.target.checked) delete hiddenSrc[s]; else hiddenSrc[s] = true;
+    store.set("hiddenSrc", hiddenSrc);
+    renderEventSources(); renderCal(); renderEvents();
+  });
   function renderCal() {
     const y = calMonth.getFullYear(), m = calMonth.getMonth();
-    const dates = new Set(events.filter((e) => e.date).map((e) => e.date));
+    const dates = new Set(shownEvents().filter((e) => e.date).map((e) => e.date));
     const start = new Date(y, m, 1 - new Date(y, m, 1).getDay());
     let cells = "";
     for (let i = 0; i < 42; i++) {
@@ -266,7 +282,7 @@
     if (d) { selDate = selDate === d ? null : d; renderCal(); renderEvents(); }
   });
   function renderEvents() {
-    let list = events.filter((e) => evFilter === "all" || e.type === evFilter);
+    let list = shownEvents().filter((e) => evFilter === "all" || e.type === evFilter);
     if (selDate) list = list.filter((e) => e.date === selDate);
     list.sort((a, b) => (a.date || "9999").localeCompare(b.date || "9999"));
     $("#eventList").innerHTML = list.length ? list.map((e) => {
@@ -715,7 +731,7 @@
   }
 
   renderHeroCard(); renderTicker(); renderStats(); renderDomains();
-  if (isPrivate) { renderEventFilters(); renderCal(); renderEvents(); }
+  if (isPrivate) { renderEventFilters(); renderEventSources(); renderCal(); renderEvents(); }
   renderLibFilters(); renderLibrary();
   if (isPrivate) { renderBooks(); renderSrcFilter(); renderNoteList(); renderEditor(); }
   renderContestFilters(); renderContests();

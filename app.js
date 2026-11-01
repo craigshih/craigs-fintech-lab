@@ -8,6 +8,13 @@
   const thesis = FT.thesis || [];
   const library = FT.library || [];
   if (!isPrivate) document.body.classList.add("public");
+  // 校園競賽的報名截止與重要日期，自動帶入行事曆
+  if (isPrivate) (FT.contests || []).forEach((c) => (c.dates || []).forEach((d) => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(d.date)) return;
+    const isReg = /報名|徵件/.test(d.label);
+    events.push({ date: d.date, time: "", type: isReg ? "todo" : "event", domain: (c.domains || [])[0] || "", source: "contest",
+      title: `${isReg ? "報名：" : ""}${c.name}｜${d.label}`, note: `${c.organizer}・${c.kind}・${c.team}。${c.theme}`, link: c.link });
+  }));
 
   const $ = (s) => document.querySelector(s);
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -27,7 +34,8 @@
     [/\bOECD\b/, "oecd.org"], [/deloitte|勤業/i, "deloitte.com"], [/\bPwC\b|資誠/i, "pwc.com"], [/\bKPMG\b|安侯/i, "kpmg.com"], [/\bEY\b|安永/, "ey.com"],
     [/HSBC|滙豐/i, "hsbc.com.tw"], [/第一銀行/, "firstbank.com.tw"], [/DBS|星展/i, "dbs.com.tw"], [/富邦/, "fubon.com"], [/花旗|citi/i, "citi.com"],
     [/玉山/, "esunbank.com"], [/永豐/, "sinopac.com"], [/國泰/, "cathayholdings.com"], [/中國信託|中信/, "ctbcbank.com"], [/台新/, "taishinbank.com.tw"],
-    [/point72/i, "point72.com"], [/^104/, "104.com.tw"], [/^cake/i, "cake.me"], [/^yourator/i, "yourator.co"], [/政大|NCCU/i, "nccu.edu.tw"]
+    [/point72/i, "point72.com"], [/金融研訓院|TABF/i, "tabf.org.tw"], [/朝陽/, "cyut.edu.tw"], [/encode club/i, "encode.club"],
+    [/法國巴黎人壽|cardif/i, "bnpparibascardif.com.tw"], [/華南/, "hnfhc.com.tw"], [/臺灣企銀|臺灣中小企業銀行|台灣企銀/, "tbb.com.tw"], [/臺北商業大學|北商/, "ntub.edu.tw"], [/^104/, "104.com.tw"], [/^cake/i, "cake.me"], [/^yourator/i, "yourator.co"], [/政大|NCCU/i, "nccu.edu.tw"]
   ];
   // 這些網站只是轉載 / 人力銀行 / 學校公告，不代表品牌本身
   const AGGREGATORS = /yes123|career\.ntu|cd\.nccu|money\.udn|104\.com|yourator|cake\.me|indeed|linkedin|classcentral|careers360|course\.careers|onestopesg|jakeclaver|walnutinvest|google\./;
@@ -227,7 +235,7 @@
   let evFilter = "all", selDate = null;
   let calMonth = new Date(today.getFullYear(), today.getMonth(), 1);
   const typeName = { event: "活動", todo: "待辦", info: "資訊" };
-  const srcName = { discord: "Discord", gmail: "Gmail", accupass: "Accupass", web: "活動雷達", manual: "手動" };
+  const srcName = { discord: "Discord", gmail: "Gmail", accupass: "Accupass", web: "活動雷達", contest: "校園競賽", manual: "手動" };
   function renderEventFilters() {
     $("#eventFilters").innerHTML = [["all", "全部"], ["todo", "待辦"], ["event", "活動"], ["info", "資訊"]]
       .map(([v, l]) => `<button class="chip ${evFilter === v ? "on" : ""}" data-v="${v}">${l}</button>`).join("");
@@ -514,6 +522,48 @@
     toast("已匯出 Markdown");
   };
 
+  // ---- 校園競賽 ----
+  const contests = FT.contests || [];
+  if (FT.contestsUpdated) $("#contestsUpdated").textContent = "最後更新 " + FT.contestsUpdated;
+  const daysLeft = (d) => Math.round((parse(d) - today) / 86400000);
+  const contestStatus = (c) => c.status === "tbd" ? "tbd" : (c.regEnd && c.regEnd >= todayStr ? "open" : "closed");
+  let ctStatus = contests.some((c) => contestStatus(c) === "open") ? "open" : "all", ctLevel = "all";
+  function renderContestFilters() {
+    const n = (st) => contests.filter((c) => st === "all" || contestStatus(c) === st).length;
+    $("#contestStatus").innerHTML = [["open", "報名中"], ["tbd", "待公布"], ["closed", "已截止（明年參考）"], ["all", "全部"]]
+      .map(([v, l]) => `<button class="chip ${ctStatus === v ? "on" : ""}" data-st="${v}">${l}<span class="count">${n(v)}</span></button>`).join("");
+    $("#contestLevel").innerHTML = [["all", "不限身分"], ["碩士", "碩士可參加"], ["學士", "學士可參加"]]
+      .map(([v, l]) => `<button class="chip ${ctLevel === v ? "on" : ""}" data-lv="${v}">${l}</button>`).join("");
+  }
+  $("#contestStatus").addEventListener("click", (e) => { const b = e.target.closest("[data-st]"); if (b) { ctStatus = b.dataset.st; renderContestFilters(); renderContests(); } });
+  $("#contestLevel").addEventListener("click", (e) => { const b = e.target.closest("[data-lv]"); if (b) { ctLevel = b.dataset.lv; renderContestFilters(); renderContests(); } });
+  function renderContests() {
+    const rank = { open: 0, tbd: 1, closed: 2 };
+    const list = contests
+      .filter((c) => ctStatus === "all" || contestStatus(c) === ctStatus)
+      .filter((c) => ctLevel === "all" || c.levels.some((l) => l.includes(ctLevel)))
+      .sort((a, b) => rank[contestStatus(a)] - rank[contestStatus(b)] ||
+        (contestStatus(a) === "closed" ? (b.regEnd || "").localeCompare(a.regEnd || "") : (a.regEnd || "9").localeCompare(b.regEnd || "9")));
+    const WD = "日一二三四五六";
+    const fmt = (d) => /^\d{4}-\d{2}-\d{2}$/.test(d) ? `${Number(d.slice(5, 7))}/${Number(d.slice(8))}（${WD[parse(d).getDay()]}）` : d;
+    $("#contestGrid").innerHTML = list.length ? list.map((c) => {
+      const st = contestStatus(c), left = st === "open" ? daysLeft(c.regEnd) : null;
+      const badge = st === "open" ? `<span class="ct-status open ${left <= 7 ? "urgent" : ""}">報名中・${left === 0 ? "今天截止" : `剩 ${left} 天`}</span>`
+        : st === "tbd" ? `<span class="ct-status tbd">今年待公布</span>` : `<span class="ct-status closed">已截止</span>`;
+      return `<article class="contest-card ${st}">
+        <div class="ct-top">${logo(c.organizer, c.link, true, "lg")}<div class="ct-org"><small>${esc(c.organizer)}</small><b>${esc(c.kind)}</b></div>${badge}</div>
+        <h3>${esc(c.name)}</h3>${c.en ? `<p class="ct-en">${esc(c.en)}</p>` : ""}
+        <p class="ct-theme">${esc(c.theme)}</p>
+        <div class="job-meta">${c.levels.map((l) => `<span>🎓 ${esc(l)}</span>`).join("")}<span>👥 ${esc(c.team)}</span></div>
+        ${c.dates.length ? `<ul class="ct-dates">${c.dates.map((d) => `<li class="${/^\d{4}/.test(d.date) && d.date < todayStr ? "past" : ""}"><span>${esc(d.label)}</span><b>${esc(fmt(d.date))}</b></li>`).join("")}</ul>` : ""}
+        <div class="ct-prize">${icon("trophy")}<span>${esc(c.prize)}</span></div>
+        <p class="ct-why"><b>適合你嗎</b>${esc(c.why)}<span class="stars" title="和論文方向的相關程度">${"★".repeat(c.fit || 0)}${"☆".repeat(5 - (c.fit || 0))}</span></p>
+        <div class="ct-foot">${c.verify ? `<span class="verify">細節來自轉載，報名前請看官方簡章</span>` : "<span></span>"}<a class="btn btn-red btn-sm" href="${esc(c.link)}" target="_blank" rel="noopener">官方頁面 ${icon("external")}</a></div>
+      </article>`;
+    }).join("") : `<p class="empty">目前沒有符合條件的競賽。可以改看「全部」，或跑一次「校園競賽雷達」更新。</p>`;
+    observeStagger($("#contestGrid"));
+  }
+
   // ---- 職缺 ----
   let jobFilter = "all";
   function renderJobFilters() {
@@ -668,6 +718,7 @@
   if (isPrivate) { renderEventFilters(); renderCal(); renderEvents(); }
   renderLibFilters(); renderLibrary();
   if (isPrivate) { renderBooks(); renderSrcFilter(); renderNoteList(); renderEditor(); }
+  renderContestFilters(); renderContests();
   renderJobFilters(); renderJobs();
   renderThesisFilters(); renderThesis();
   renderCourseFilters(); renderCourses();

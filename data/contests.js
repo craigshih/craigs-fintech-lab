@@ -1,4 +1,4 @@
-// 校園競賽：以學生團隊為主、學士 / 碩士可參加的金融科技相關競賽
+// 校園競賽：以學生團隊為主、碩士生可以參加的金融科技相關競賽（只限學士生的不收）
 // 在對話裡說「跑競賽雷達」時更新（主要來源：獎金獵人 bhuntr.com）；狀態（報名中 / 已截止）由網站依今天日期自動判斷
 // status: "tbd" 代表今年還沒公告；verify: true 代表細節來自轉載，報名前請看官方簡章
 window.FT = window.FT || {};
@@ -67,15 +67,6 @@ window.FT.contests = [
     prize: "總獎金 5 萬（單項最高 2 萬）", fit: 3,
     why: "RegTech 角度可以接穩定幣監理與反洗錢；截止較晚，時間比較充裕。",
     link: "https://bhuntr.com/tw/competitions/7y586yqivco44jfyo5"
-  },
-  {
-    id: "seed-cup-stock-research-6", name: "2026 第六屆潛力種子盃個股研究競賽", organizer: "中央、暨南、中正、中興大學證券社", kind: "個股研究報告",
-    domains: ["wealth"], levels: ["學士"], team: "1–4 人，可跨校（限學士生）",
-    theme: "自選一檔市值 200 億以上台股做基本面分析與估值",
-    regEnd: "2026-12-31", dates: [{ label: "報名截止", date: "2026-12-31" }, { label: "初賽報告交件", date: "2027-01-10" }, { label: "複賽（中央大學）", date: "2027-03-20" }],
-    prize: "第一名 1.5 萬（總獎金 3.3 萬）", fit: 1,
-    why: "限學士生，碩士不能參加；可轉給 #1 投資組的大學部學弟妹。",
-    link: "https://bhuntr.com/tw/competitions/pe48how9oty8181822"
   },
   {
     id: "huanan-fintech-3", name: "第三屆華南金控金融科技創新競賽", organizer: "華南金控", kind: "創意提案 / 技術實證", status: "tbd",

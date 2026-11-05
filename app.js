@@ -580,6 +580,36 @@
     observeStagger($("#contestGrid"));
   }
 
+  // ---- 同事作品參考 ----
+  const peerWorks = FT.peerWorks || [], peerAuthor = FT.peerAuthor;
+  const peerGroups = [["all", "全部"], ["thesis", "論文可用"], ["contest", "比賽參考"], ["more", "其他領域"]];
+  let peerGroup = "all";
+  function renderPeerFilters() {
+    $("#peerFilters").innerHTML = peerGroups.map(([v, l]) => `<button class="chip ${peerGroup === v ? "on" : ""}" data-pg="${v}">${l}<span class="count">${v === "all" ? peerWorks.length : peerWorks.filter((w) => w.group === v).length}</span></button>`).join("");
+  }
+  $("#peerFilters").addEventListener("click", (e) => { const b = e.target.closest("[data-pg]"); if (b) { peerGroup = b.dataset.pg; renderPeerFilters(); renderPeers(); } });
+  function renderPeers() {
+    if (peerAuthor) $("#peerAuthor").innerHTML = `
+      <span class="peer-avatar">Z</span>
+      <div class="peer-who"><b>${esc(peerAuthor.name)}</b><small>${peerAuthor.role.split(" · ").map((r) => `<span>${esc(r)}</span>`).join("")}</small>
+        <div class="peer-focus">${peerAuthor.focus.map((f) => `<span>${esc(f)}</span>`).join("")}</div></div>
+      <div class="peer-links"><a class="mini-btn" href="${esc(peerAuthor.github)}" target="_blank" rel="noopener">GitHub ${icon("external")}</a><a class="mini-btn" href="${esc(peerAuthor.site)}" target="_blank" rel="noopener">zuemen.net ${icon("external")}</a></div>`;
+    const list = peerWorks.filter((w) => peerGroup === "all" || w.group === peerGroup);
+    const lic = (l) => /MIT|Apache/.test(l) ? "ok" : /自訂/.test(l) ? "custom" : "none";
+    $("#peerGrid").innerHTML = list.map((w) => `
+      <article class="peer-card ${w.group}">
+        <div class="peer-top"><span class="peer-group">${peerGroups.find((g) => g[0] === w.group)[1]}</span><span class="peer-lic ${lic(w.license)}">${esc(w.license)}</span></div>
+        <h3>${esc(w.name)}</h3>
+        ${w.award ? `<p class="peer-award">${esc(w.award)}</p>` : ""}
+        <p class="peer-desc">${esc(w.desc)}</p>
+        <p class="peer-use"><b>可以拿來</b>${esc(w.use)}</p>
+        <div class="peer-tags">${w.domains.map((d) => `<span class="dom">${icon(d)}${esc(domainLabel(d))}</span>`).join("")}${w.tech.map((t) => `<span>${esc(t)}</span>`).join("")}</div>
+        <div class="peer-foot"><a href="${esc(w.repo)}" target="_blank" rel="noopener">GitHub ${icon("external")}</a>${w.demo ? `<a href="${esc(w.demo)}" target="_blank" rel="noopener">Demo ${icon("external")}</a>` : ""}</div>
+      </article>`).join("");
+    observeStagger($("#peerGrid"));
+  }
+  if (FT.peersUpdated) $("#peersUpdated").textContent = `最後更新 ${FT.peersUpdated}`;
+
   // ---- 職缺 ----
   let jobFilter = "all";
   function renderJobFilters() {
@@ -735,6 +765,7 @@
   renderLibFilters(); renderLibrary();
   if (isPrivate) { renderBooks(); renderSrcFilter(); renderNoteList(); renderEditor(); }
   renderContestFilters(); renderContests();
+  renderPeerFilters(); renderPeers();
   renderJobFilters(); renderJobs();
   renderThesisFilters(); renderThesis();
   renderCourseFilters(); renderCourses();

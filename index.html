@@ -58,6 +58,7 @@
         <a href="#courses">每週課程</a>
         <a href="#platforms">課程平台</a>
         <a href="#contests">競賽</a>
+        <a href="#peers">作品參考</a>
         <a href="#jobs">職缺</a>
         <a href="#thesis">論文雷達</a>
         <a href="#notes">筆記</a>
@@ -203,6 +204,21 @@
       </div>
     </section>
 
+    <!-- PEER WORKS -->
+    <section class="section" id="peers">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow"><svg class="ic"><use href="#i-link"/></svg> Peer Works · 同事作品參考</p>
+          <h2>大神同事的作品集</h2>
+          <p class="sub">Zuemen 的公開專案，挑出跟穩定幣、支付論文和校園競賽最相關的，附上可以怎麼用。<span class="updated" id="peersUpdated"></span></p>
+        </div>
+        <div class="peer-author reveal" id="peerAuthor"></div>
+        <div class="filters" id="peerFilters"></div>
+        <div class="peer-grid" id="peerGrid"></div>
+        <p class="peer-note">程式碼標 MIT／Apache-2.0 的可以改用，但要保留原作者的版權聲明；未標授權的只能參考。用在論文或比賽時要註明出處。</p>
+      </div>
+    </section>
+
     <!-- JOBS -->
     <section class="section" id="jobs">
       <div class="wrap">
@@ -305,7 +321,7 @@
   <script>
     // 排程會覆寫 data/*.js，加時間戳避免讀到舊快取；events.js 是私人檔，公開網站上不存在
     (function () {
-      var files = ["data/domains.js", "data/events.js", "data/jobs.js", "data/thesis.js", "data/library.js", "data/notes.js", "data/courses.js", "data/contests.js", "app.js"], t = Date.now();
+      var files = ["data/domains.js", "data/events.js", "data/jobs.js", "data/thesis.js", "data/library.js", "data/notes.js", "data/courses.js", "data/contests.js", "data/peers.js", "app.js"], t = Date.now();
       (function next(i) {
         if (i >= files.length) return;
         var s = document.createElement("script");

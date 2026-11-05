@@ -53,6 +53,16 @@ body:not(.public) .public-only { display: none !important; }
 .nav-toggle { display: none; background: none; border: 0; color: #fff; font-size: 22px; cursor: pointer; }
 
 /* HERO */
+/* BLOCKCHAIN VAULT（嵌入） */
+.vault { background: var(--black); color: #fff; padding: 28px 0 36px; border-bottom: 1px solid var(--line); }
+.vault-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+.vault-head h2 { margin: 4px 0 6px; font-size: clamp(24px, 3vw, 34px); font-weight: 900; }
+.vault-head .eyebrow { margin: 0; }
+.vault-sub { margin: 0; color: #bbb; font-size: 15px; max-width: 46em; }
+.vault-head .btn { white-space: nowrap; }
+.vault-frame { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--black-3); box-shadow: 0 24px 60px -30px rgba(0,0,0,.8); }
+.vault-frame iframe { display: block; width: 100%; height: clamp(520px, 78vh, 940px); border: 0; }
+@media (max-width: 640px) { .vault { padding: 20px 0 28px; } .vault-frame { border-radius: 12px; } .vault-frame iframe { height: 72vh; } }
 .hero { background: var(--black); color: #fff; padding: 76px 0 0; position: relative; overflow: hidden; }
 .orb { position: absolute; border-radius: 50%; filter: blur(10px); pointer-events: none; }
 .orb-1 { right: -140px; top: -140px; width: 520px; height: 520px; background: radial-gradient(circle, rgba(224,38,47,.5), transparent 68%); animation: float 12s ease-in-out infinite; }
